@@ -5,4 +5,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="hint_gray">#A9A9A9</color>
     <color name="teal_700">#018786</color>
+    <color name="chart_background">#1E1E1E</color>
+    <color name="chart_grid">#333333</color>
 </resources>

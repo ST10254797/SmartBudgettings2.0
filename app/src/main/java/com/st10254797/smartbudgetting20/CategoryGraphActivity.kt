@@ -25,6 +25,8 @@ import java.text.SimpleDateFormat
 import java.util.*
 import android.util.Log
 import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
+
 
 class CategoryGraphActivity : AppCompatActivity() {
 
@@ -71,6 +73,7 @@ class CategoryGraphActivity : AppCompatActivity() {
         loadGraphData()
     }
 
+
     private fun setupChartAppearance() {
         barChart.apply {
             setDrawBarShadow(false)
@@ -96,51 +99,77 @@ class CategoryGraphActivity : AppCompatActivity() {
                 textColor = Color.BLACK
                 setDrawZeroLine(true)
                 zeroLineColor = Color.GRAY
+
             }
+
+            // Disable right axis completely
             axisRight.isEnabled = false
         }
     }
 
     private fun pickDate(isStart: Boolean) {
         val calendar = Calendar.getInstance()
-        val datePicker = DatePickerDialog(this, { _, year, month, dayOfMonth ->
-            calendar.set(year, month, dayOfMonth)
-            val selectedDate = dateFormat.format(calendar.time)
+        val datePicker = DatePickerDialog(
+            this,
+            { _, year, month, dayOfMonth ->
+                calendar.set(year, month, dayOfMonth)
+                val selectedDate = dateFormat.format(calendar.time)
 
-            if (isStart) {
-                if (endDateString != null) {
-                    val endDate = dateFormat.parse(endDateString!!)
-                    if (endDate != null && calendar.time.after(endDate)) {
-                        Toast.makeText(this, "Start date cannot be after end date", Toast.LENGTH_SHORT).show()
-                        return@DatePickerDialog
+                if (isStart) {
+                    if (endDateString != null) {
+                        val endDate = dateFormat.parse(endDateString!!)
+                        if (endDate != null && calendar.time.after(endDate)) {
+                            Toast.makeText(
+                                this,
+                                "Start date cannot be after end date",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            return@DatePickerDialog
+                        }
                     }
-                }
-                startDateString = selectedDate
-                startDateEditText.setText(selectedDate)
-            } else {
-                if (startDateString != null) {
-                    val startDate = dateFormat.parse(startDateString!!)
-                    if (startDate != null && calendar.time.before(startDate)) {
-                        Toast.makeText(this, "End date cannot be before start date", Toast.LENGTH_SHORT).show()
-                        return@DatePickerDialog
+                    startDateString = selectedDate
+                    startDateEditText.setText(selectedDate)
+                } else {
+                    if (startDateString != null) {
+                        val startDate = dateFormat.parse(startDateString!!)
+                        if (startDate != null && calendar.time.before(startDate)) {
+                            Toast.makeText(
+                                this,
+                                "End date cannot be before start date",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            return@DatePickerDialog
+                        }
                     }
+                    endDateString = selectedDate
+                    endDateEditText.setText(selectedDate)
                 }
-                endDateString = selectedDate
-                endDateEditText.setText(selectedDate)
-            }
-        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH))
+            },
+            calendar.get(Calendar.YEAR),
+            calendar.get(Calendar.MONTH),
+            calendar.get(Calendar.DAY_OF_MONTH)
+        )
         datePicker.show()
     }
 
     private fun loadGraphData() {
+        Log.d("GraphLoadDebug", "loadGraphData() called")
+
         val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return
 
-        CoroutineScope(Dispatchers.Main).launch {
-            val categoriesRef = db.collection("users").document(userId).collection("categories")
-            val expenseRef = db.collection("users").document(userId).collection("expenses")
+        fun showNoData(message: String) {
+            barChart.clear()
+            barChart.setNoDataText(message)
+            barChart.setNoDataTextColor(Color.GRAY)
+            barChart.invalidate()
+        }
 
-            // Fetch categories to map ID -> Name, trim IDs and names
-            categoriesRef.get().addOnSuccessListener { categorySnapshot ->
+        CoroutineScope(Dispatchers.Main).launch {
+            try {
+                val categoriesRef = db.collection("users").document(userId).collection("categories")
+                val expenseRef = db.collection("users").document(userId).collection("expenses")
+                val categorySnapshot = withContext(Dispatchers.IO) { categoriesRef.get().await() }
+
                 val categoryMap = mutableMapOf<String, String>()
                 for (catDoc in categorySnapshot.documents) {
                     val id = catDoc.id.trim()
@@ -148,131 +177,158 @@ class CategoryGraphActivity : AppCompatActivity() {
                     categoryMap[id] = name
                     Log.d("CategoryMapDebug", "Category ID: '$id' -> Name: '$name'")
                 }
+                Log.d("CategoryMapDebug", "Total categories loaded: ${categoryMap.size}")
 
-                val localStartDateString = startDateString
-                val localEndDateString = endDateString
+                val expenseSnapshot = withContext(Dispatchers.IO) { expenseRef.get().await() }
+                Log.d("ExpenseDebug", "Total expenses fetched: ${expenseSnapshot.size()}")
 
-                val expensesQuery = when {
-                    localStartDateString != null && localEndDateString != null -> {
-                        val startDate = dateFormat.parse(localStartDateString)
-                        val endDate = dateFormat.parse(localEndDateString)
-                        if (startDate != null && endDate != null && !startDate.after(endDate)) {
-                            Toast.makeText(
-                                this@CategoryGraphActivity,
-                                "Showing data from $localStartDateString to $localEndDateString",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                            expenseRef
-                                .whereGreaterThanOrEqualTo("date", Timestamp(startDate))
-                                .whereLessThanOrEqualTo("date", Timestamp(endDate))
-                        } else {
-                            Toast.makeText(this@CategoryGraphActivity, "Invalid date range. Showing all data.", Toast.LENGTH_SHORT).show()
-                            expenseRef
-                        }
-                    }
-                    else -> {
-                        Toast.makeText(this@CategoryGraphActivity, "Showing all data (no date filter).", Toast.LENGTH_SHORT).show()
-                        expenseRef
-                    }
+                if (expenseSnapshot.isEmpty) {
+                    Log.w("ExpenseDebug", "No expenses found.")
+                    showNoData("No expense data to display.")
+                    return@launch
                 }
 
-                expensesQuery.get().addOnSuccessListener { snapshot ->
-                    if (snapshot.isEmpty) {
-                        barChart.clear()
-                        barChart.setNoDataText("No expense data to display.")
-                        barChart.setNoDataTextColor(Color.GRAY)
-                        barChart.invalidate()
-                        return@addOnSuccessListener
+                val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                val startDate = startDateString?.let { dateFormat.parse(it) }
+                val endDate = endDateString?.let { dateFormat.parse(it) }
+
+                val filteredExpenses = expenseSnapshot.documents.filter { doc ->
+                    val timestamp = doc.getTimestamp("date")
+                    if (timestamp == null) {
+                        Log.w("FilterDebug", "Expense ${doc.id} missing 'date' timestamp; skipping")
+                        return@filter false
                     }
+                    val expenseDate = timestamp.toDate()
 
-                    val categoryTotals = mutableMapOf<String, Float>()
+                    val afterStart = startDate?.let {
+                        val result = expenseDate >= it
+                        if (!result) Log.d("FilterDebug", "Expense ${doc.id} date $expenseDate before start $it")
+                        result
+                    } ?: true
 
-                    for (doc in snapshot.documents) {
-                        val categoryId = doc.getString("category")?.trim()
-                        val amount = doc.get("amount")?.toString()?.toFloatOrNull() ?: 0f
+                    val beforeEnd = endDate?.let {
+                        val result = expenseDate <= it
+                        if (!result) Log.d("FilterDebug", "Expense ${doc.id} date $expenseDate after end $it")
+                        result
+                    } ?: true
 
-                        Log.d("ExpenseDebug", "Category ID from expense: '$categoryId', Amount: $amount")
+                    afterStart && beforeEnd
+                }
 
-                        if (amount <= 0f) continue
+                Log.d("FilterDebug", "Filtered expenses count: ${filteredExpenses.size}")
 
-                        // Lookup category name from the map, fallback to "Unknown"
-                        val categoryName = categoryId?.let { categoryMap[it] } ?: "Unknown"
+                if (filteredExpenses.isEmpty()) {
+                    Log.w("ExpenseDebug", "No expenses after filtering by date.")
+                    showNoData("No categorized expense data to display.")
+                    return@launch
+                }
 
-                        Log.d("ExpenseDebug", "Mapped Category Name: '$categoryName'")
-
-                        categoryTotals[categoryName] = categoryTotals.getOrDefault(categoryName, 0f) + amount
+                val categoryTotals = filteredExpenses.mapNotNull { doc ->
+                    val categoryId = doc.getString("categoryId")?.trim()
+                    val amount = doc.getDouble("amount")?.toFloat()
+                    if (categoryId.isNullOrBlank() || amount == null || amount <= 0f) {
+                        Log.w("ExpenseDebug", "Invalid expense ${doc.id}; skipping")
+                        null
+                    } else {
+                        val catName = categoryMap[categoryId] ?: "Unknown"
+                        if (catName == "Unknown") {
+                            Log.w("CategoryDebug", "Expense ${doc.id} has unknown category ID: '$categoryId'")
+                        }
+                        catName to amount
                     }
+                }
+                    .groupBy({ it.first }, { it.second })
+                    .mapValues { it.value.sum() }
+                    .toMutableMap()
 
-                    if (categoryTotals.isEmpty()) {
-                        barChart.clear()
-                        barChart.setNoDataText("No categorized expense data to display.")
-                        barChart.setNoDataTextColor(Color.GRAY)
-                        barChart.invalidate()
-                        return@addOnSuccessListener
-                    }
+                Log.d("ExpenseDebug", "Category totals computed: $categoryTotals")
 
-                    Log.d("CategoryTotals", categoryTotals.toString())
+                if (categoryTotals.isEmpty()) {
+                    Log.w("ExpenseDebug", "No valid categorized expense data to display after processing.")
+                    showNoData("No categorized expense data to display.")
+                    return@launch
+                }
 
-                    val entries = ArrayList<BarEntry>()
-                    val labels = ArrayList<String>()
+                val entries = ArrayList<BarEntry>()
+                val labels = ArrayList<String>()
 
-                    categoryTotals.entries.sortedByDescending { it.value }.forEachIndexed { index, entry ->
+                categoryTotals.entries.sortedByDescending { it.value }
+                    .forEachIndexed { index, entry ->
                         entries.add(BarEntry(index.toFloat(), entry.value))
                         labels.add(entry.key)
                     }
 
-                    val maxBarValue = entries.maxOfOrNull { it.y } ?: 0f
+                val maxBarValue = entries.maxOfOrNull { it.y } ?: 0f
 
-                    val barDataSet = BarDataSet(entries, "Expenses by Category").apply {
-                        color = ContextCompat.getColor(this@CategoryGraphActivity, R.color.teal_700)
-                        valueTextSize = 12f
-                        valueTextColor = Color.WHITE
-                        valueFormatter = object : ValueFormatter() {
-                            override fun getFormattedValue(value: Float): String {
-                                return "R${value.toInt()}"
-                            }
+                // Additional logs here
+                Log.d("GraphDataDebug", "Entries size: ${entries.size}, Labels size: ${labels.size}")
+                Log.d("GraphDataDebug", "Entries: $entries")
+                Log.d("GraphDataDebug", "Labels: $labels")
+                Log.d("GraphDataDebug", "Max bar value: $maxBarValue")
+                Log.d("GraphDebug", "BarChart visibility: ${barChart.visibility}")
+                Log.d("GraphDebug", "BarChart width: ${barChart.width}, height: ${barChart.height}")
+
+                for ((i, entry) in entries.withIndex()) {
+                    Log.d("GraphDataDebug", "Entry $i: x=${entry.x}, y=${entry.y}, label=${labels.getOrNull(i)}")
+                }
+
+
+                val barDataSet = BarDataSet(entries, "Expenses by Category").apply {
+                    color = ContextCompat.getColor(this@CategoryGraphActivity, R.color.teal_700)
+                    valueTextSize = 12f
+                    valueTextColor = Color.BLACK
+                    valueFormatter = object : ValueFormatter() {
+                        override fun getFormattedValue(value: Float): String {
+                            return "R${value.toInt()}"
                         }
                     }
+                }
 
-                    val data = BarData(barDataSet).apply {
-                        barWidth = 0.6f
-                        setValueTextSize(10f)
-                    }
+                val data = BarData(barDataSet).apply {
+                    barWidth = 0.6f
+                }
 
-                    barChart.apply {
-                        this.data = data
-                        xAxis.valueFormatter = IndexAxisValueFormatter(labels)
-                        xAxis.labelCount = labels.size
-                        xAxis.textColor = Color.WHITE
-                        xAxis.position = XAxis.XAxisPosition.BOTTOM
-                        xAxis.setDrawGridLines(false)
+                // Get goals before setting up the chart
+                val goalsDoc = withContext(Dispatchers.IO) {
+                    db.collection("goals").document(userId).get().await()
+                }
+                val minGoal = goalsDoc.getDouble("minGoal")?.toFloat()
+                val maxGoal = goalsDoc.getDouble("maxGoal")?.toFloat()
 
-                        axisLeft.apply {
-                            isEnabled = true
-                            textColor = Color.WHITE
-                            axisLineColor = Color.WHITE
-                            gridColor = Color.GRAY
-                            axisMaximum = maxBarValue * 1.2f
-                        }
+                Log.d("GoalDebug", "MinGoal: $minGoal, MaxGoal: $maxGoal, MaxBarValue: ${entries.maxOfOrNull { it.y }}")
 
-                        axisRight.isEnabled = false
-                        setFitBars(true)
-                        setVisibleXRangeMaximum(6f)
-                        moveViewToX(entries.size.toFloat())
-                        animateY(1000)
-                        invalidate()
-                    }
+                barChart.apply {
+                    this.data = data
+                    xAxis.valueFormatter = IndexAxisValueFormatter(labels)
+                    xAxis.labelCount = labels.size
+                    xAxis.textColor = Color.BLACK
+                    xAxis.position = XAxis.XAxisPosition.BOTTOM
+                    xAxis.setDrawGridLines(false)
+                    xAxis.labelRotationAngle = -30f
 
-                    // Add goal lines if available
-                    db.collection("goals").document(userId).get().addOnSuccessListener { doc ->
-                        val minGoal = doc.getDouble("minGoal")?.toFloat()
-                        val maxGoal = doc.getDouble("maxGoal")?.toFloat()
+                    // Configure left axis (primary axis)
+                    axisLeft.apply {
+                        isEnabled = true
+                        textColor = Color.BLACK
+                        axisLineColor = Color.WHITE
+                        gridColor = Color.GRAY
 
-                        val yAxis = barChart.axisLeft
-                        yAxis.removeAllLimitLines()
+                        // Calculate the maximum value considering both data and goals
+                        val calculatedMax = listOfNotNull(
+                            entries.maxOfOrNull { it.y },
+                            minGoal,
+                            maxGoal
+                        ).maxOrNull() ?: entries.maxOfOrNull { it.y } ?: 0f
 
+                        axisMaximum = calculatedMax * 1.2f  // Add 20% padding
+                        axisMinimum = 0f
+
+                        // Clear any existing limit lines
+                        removeAllLimitLines()
+
+                        // Add goal lines
                         minGoal?.let {
-                            yAxis.addLimitLine(LimitLine(it, "Min Goal").apply {
+                            addLimitLine(LimitLine(it, "Min Goal").apply {
                                 lineColor = Color.GREEN
                                 lineWidth = 2f
                                 textColor = Color.GREEN
@@ -281,19 +337,33 @@ class CategoryGraphActivity : AppCompatActivity() {
                         }
 
                         maxGoal?.let {
-                            yAxis.addLimitLine(LimitLine(it, "Max Goal").apply {
+                            addLimitLine(LimitLine(it, "Max Goal").apply {
                                 lineColor = Color.RED
                                 lineWidth = 2f
                                 textColor = Color.RED
                                 textSize = 10f
                             })
                         }
-
-                        val newMax = listOfNotNull(maxBarValue, minGoal, maxGoal).maxOrNull() ?: maxBarValue
-                        yAxis.axisMaximum = newMax * 1.2f
-                        barChart.invalidate()
                     }
+
+                    // Keep right axis disabled
+                    axisRight.isEnabled = false
+
+                    setFitBars(true)
+                    setVisibleXRangeMaximum(6f)
+                    moveViewToX(entries.size.toFloat())
+                    animateY(1000)
+                    notifyDataSetChanged()
+                    invalidate()  // Only call this once at the end
                 }
+
+            } catch (e: Exception) {
+                Log.e("GraphLoadError", "Failed to load graph data", e)
+                Toast.makeText(
+                    this@CategoryGraphActivity,
+                    "Something went wrong while loading data.",
+                    Toast.LENGTH_LONG
+                ).show()
             }
         }
     }

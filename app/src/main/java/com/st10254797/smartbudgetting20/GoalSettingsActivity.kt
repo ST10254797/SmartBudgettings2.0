@@ -49,7 +49,7 @@ class GoalSettingsActivity : AppCompatActivity() {
 
                     minGoalInput.setText(minGoal.toString())
                     maxGoalInput.setText(maxGoal.toString())
-                    goalTextView.text = "Min: R$minGoal | Max: R$maxGoal"
+                    goalTextView.text = "Min: R%.2f | Max: R%.2f".format(minGoal, maxGoal)
                 } else {
                     goalTextView.text = "No goals set yet"
                 }
