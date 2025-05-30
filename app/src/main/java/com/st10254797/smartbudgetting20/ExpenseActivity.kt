@@ -435,6 +435,9 @@ class ExpenseActivity : AppCompatActivity() {
     private fun clearExpenseFilter() {
         startDateEditText.text.clear()
         endDateEditText.text.clear()
+
+        // Clear totals display
+        findViewById<LinearLayout>(R.id.categoryTotalsLayout).removeAllViews()
         selectedCategoryId?.let { loadExpensesForCategory(it) }
     }
 
