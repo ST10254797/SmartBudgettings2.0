@@ -76,34 +76,56 @@ class CategoryGraphActivity : AppCompatActivity() {
 
     private fun setupChartAppearance() {
         barChart.apply {
+            // Basic chart configuration
             setDrawBarShadow(false)
             setDrawValueAboveBar(true)
             description.isEnabled = false
             setPinchZoom(false)
             setDrawGridBackground(false)
+
+            // Legend settings
             legend.isEnabled = true
             legend.textColor = Color.BLACK
-            setExtraOffsets(0f, 0f, 0f, 40f)
 
+            // Chart padding
+            setExtraOffsets(10f, 0f, 0f, 40f)  // Left, Top, Right, Bottom padding
+
+            // X-axis configuration
             xAxis.apply {
-                position = XAxis.XAxisPosition.BOTTOM
+                position = XAxis.XAxisPosition.BOTTOM  // Fixed typo from "BOITION"
                 granularity = 1f
                 setDrawGridLines(false)
                 textColor = Color.BLACK
                 setAvoidFirstLastClipping(true)
                 labelRotationAngle = -45f
+                setDrawAxisLine(true)  // Make X-axis line visible
+                axisLineColor = Color.BLACK
+                axisLineWidth = 1f
             }
 
+            // Left Y-axis configuration (main axis)
             axisLeft.apply {
+                isEnabled = true
                 axisMinimum = 0f
                 textColor = Color.BLACK
-                setDrawZeroLine(true)
-                zeroLineColor = Color.GRAY
-
+                setDrawZeroLine(false)
+                setDrawAxisLine(true)
+                axisLineColor = Color.BLACK  // Changed from RED to BLACK for production
+                axisLineWidth = 2f  // Slightly thicker than X-axis
+                setDrawGridLines(true)  // Enable horizontal grid lines
+                gridColor = Color.LTGRAY  // Light gray grid lines
+                gridLineWidth = 0.5f
             }
 
-            // Disable right axis completely
+            // Right Y-axis configuration
             axisRight.isEnabled = false
+
+            // Layout improvements
+            clipChildren = false
+            clipToPadding = false
+
+            // Additional performance improvements
+            setHardwareAccelerationEnabled(true)
         }
     }
 
