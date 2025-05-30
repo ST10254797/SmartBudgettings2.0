@@ -244,7 +244,7 @@ class ExpenseActivity : AppCompatActivity() {
             }
         }
     }
-
+// updated code
     private fun clearExpenseList() {
         expensesListView.adapter = null
         budgetWarningTextView.visibility = android.view.View.GONE
