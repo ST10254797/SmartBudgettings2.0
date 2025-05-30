@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1026718905795",
+    "project_id": "budgettingapp-797ca",
+    "storage_bucket": "budgettingapp-797ca.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1026718905795:android:8b21830566fb8aca9c3976",
+        "android_client_info": {
+          "package_name": "com.st10254797.smartbudgetting20"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAY7cAnoqYUxTOSY745LupEp3JjczPtjkI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
