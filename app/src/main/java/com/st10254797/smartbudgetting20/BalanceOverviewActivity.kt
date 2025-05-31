@@ -404,12 +404,16 @@ class BalanceOverviewActivity : AppCompatActivity() {
             val userId = auth.currentUser?.uid ?: return@launch
 
             try {
-                val expensesSnapshot = firestore.collection("expenses")
-                    .whereEqualTo("userId", userId)
+                // Fetch data with consistent collection paths (matching loadData())
+                val expensesSnapshot = firestore.collection("users")
+                    .document(userId)
+                    .collection("expenses")
                     .get()
                     .await()
 
-                val categoriesSnapshot = firestore.collection("categories")
+                val categoriesSnapshot = firestore.collection("users")
+                    .document(userId)
+                    .collection("categories")
                     .get()
                     .await()
 
@@ -418,38 +422,103 @@ class BalanceOverviewActivity : AppCompatActivity() {
                     .get()
                     .await()
 
-                val expenses = expensesSnapshot.toObjects(Expense::class.java)
-                val categories = categoriesSnapshot.toObjects(Category::class.java)
-                val goal = goalSnapshot.toObject(Goal::class.java)
+                // Parse expenses with proper date handling
+                val expenses = expensesSnapshot.documents.mapNotNull { doc ->
+                    try {
+                        val dateField = doc.get("date")
+                        val dateString = when (dateField) {
+                            is com.google.firebase.Timestamp -> {
+                                val sdf = SimpleDateFormat("d MMMM yyyy 'at' HH:mm:ss 'UTC'X", Locale.getDefault())
+                                sdf.timeZone = TimeZone.getTimeZone("UTC")
+                                sdf.format(dateField.toDate())
+                            }
+                            is String -> dateField
+                            else -> null
+                        }
 
-                val categoryMap = categories.associateBy { it.id }
-
-                val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-                val thisMonth = Calendar.getInstance().apply {
-                    set(Calendar.DAY_OF_MONTH, 1)
-                }.time
-
-                val thisMonthExpenses = expenses.filter {
-                    val expenseDate = sdf.parse(it.date)
-                    expenseDate != null && !expenseDate.before(thisMonth)
+                        Expense(
+                            id = doc.id,
+                            amount = doc.getDouble("amount") ?: 0.0,
+                            description = doc.getString("description") ?: "",
+                            date = dateString ?: "",
+                            category = doc.getString("categoryId")?.trim() ?: "",
+                            imageUrl = doc.getString("imageUrl"),
+                            userId = doc.getString("userId") ?: ""
+                        )
+                    } catch (e: Exception) {
+                        Log.e("PDF_PARSE", "Failed to parse expense: ${e.message}")
+                        null
+                    }
                 }
 
+                // Parse categories with trimmed IDs
+                val categories = categoriesSnapshot.documents.mapNotNull { doc ->
+                    runCatching {
+                        doc.toObject(Category::class.java)?.copy(id = doc.id.trim())
+                    }.getOrElse { e ->
+                        Log.e("PDF_PARSE", "Error parsing category ${doc.id}", e)
+                        null
+                    }
+                }
+
+                val goal = goalSnapshot.toObject(Goal::class.java)
+
+                // Date handling matching loadData()
+                val sdf = SimpleDateFormat("d MMMM yyyy 'at' HH:mm:ss 'UTC'X", Locale.getDefault())
+                sdf.timeZone = TimeZone.getTimeZone("UTC")
+
+                val thisMonthCal = Calendar.getInstance(TimeZone.getTimeZone("UTC")).apply {
+                    set(Calendar.DAY_OF_MONTH, 1)
+                    set(Calendar.HOUR_OF_DAY, 0)
+                    set(Calendar.MINUTE, 0)
+                    set(Calendar.SECOND, 0)
+                    set(Calendar.MILLISECOND, 0)
+                }
+                val thisMonth = thisMonthCal.time
+
+                // Filter expenses for current month
+                val thisMonthExpenses = expenses.filter { expense ->
+                    expense.date?.let { dateStr ->
+                        try {
+                            val date = sdf.parse(dateStr)
+                            date != null && !date.before(thisMonth)
+                        } catch (e: Exception) {
+                            Log.e("PDF_DATE", "Failed to parse date: $dateStr", e)
+                            false
+                        }
+                    } ?: false
+                }
+
+                // Calculate totals with debug logging
                 val totalSpent = thisMonthExpenses.sumOf { it.amount }
+                val categoryMap = categories.associateBy { it.id.trim() }
 
                 val categoryTotals = thisMonthExpenses.groupBy { expense ->
-                    categoryMap[expense.category]?.name ?: "Unknown"
+                    val catId = expense.category.trim()
+                    categoryMap[catId]?.name ?: run {
+                        Log.w("PDF_CATEGORY", "No category found for: '$catId'")
+                        "Unknown"
+                    }
                 }.mapValues { (_, v) -> v.sumOf { it.amount } }
 
                 val daysLeft = Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH) -
                         Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
 
+                Log.d("PDF_DATA", "Total spent: $totalSpent")
+                Log.d("PDF_DATA", "Category totals: $categoryTotals")
+                Log.d("PDF_DATA", "Days left: $daysLeft")
+
                 withContext(Dispatchers.Main) {
                     generatePdfReport(categoryTotals, totalSpent, goal, daysLeft)
                 }
             } catch (e: Exception) {
-                e.printStackTrace()
+                Log.e("PDF_ERROR", "Error generating report", e)
                 withContext(Dispatchers.Main) {
-                    Toast.makeText(this@BalanceOverviewActivity, "Error generating report: ${e.message}", Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        this@BalanceOverviewActivity,
+                        "Error generating report: ${e.message}",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
         }
@@ -462,71 +531,106 @@ class BalanceOverviewActivity : AppCompatActivity() {
         daysLeft: Int
     ) {
         val document = PdfDocument()
-        val pageInfo = PdfDocument.PageInfo.Builder(300, 600, 1).create()
+        // Increased page size for better content fit
+        val pageInfo = PdfDocument.PageInfo.Builder(595, 842, 1).create() // A4 size
         val page = document.startPage(pageInfo)
         val canvas: Canvas = page.canvas
 
+        // Draw a border for debugging visible area
+        val borderPaint = Paint().apply {
+            style = Paint.Style.STROKE
+            color = Color.RED
+            strokeWidth = 1f
+        }
+        canvas.drawRect(0f, 0f, 595f, 842f, borderPaint)
+
         val titlePaint = Paint().apply {
-            textSize = 14f
+            textSize = 18f // Slightly larger title
             typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
-            color = android.graphics.Color.BLACK
+            color = Color.BLACK
+            isAntiAlias = true
         }
 
         val textPaint = Paint().apply {
-            textSize = 12f
-            color = android.graphics.Color.BLACK
+            textSize = 14f // Slightly larger text
+            color = Color.BLACK
+            isAntiAlias = true
         }
 
-        var y = 40 // starting y position for drawing text
+        val smallTextPaint = Paint().apply {
+            textSize = 12f
+            color = Color.DKGRAY
+            isAntiAlias = true
+        }
+
+        var y = 50 // Increased starting y position
 
         // Title
-        canvas.drawText("Monthly Spending Report", 10f, y.toFloat(), titlePaint)
+        canvas.drawText("📊 Monthly Spending Report", 50f, y.toFloat(), titlePaint)
+        y += 40
+
+        // Report date
+        val reportDate = SimpleDateFormat("MMMM yyyy", Locale.getDefault()).format(Date())
+        canvas.drawText("Report for $reportDate", 50f, y.toFloat(), smallTextPaint)
         y += 30
 
         // Total Spent
-        canvas.drawText("Total Spent: R%.2f".format(totalSpent), 10f, y.toFloat(), textPaint)
-        y += 25
+        canvas.drawText("Total Spent: R%.2f".format(totalSpent), 50f, y.toFloat(), textPaint)
+        y += 30
 
         // Budget Goals if present
         if (goal != null) {
-            canvas.drawText("Min Goal: R${goal.minGoal}", 10f, y.toFloat(), textPaint)
-            y += 20
-            canvas.drawText("Max Goal: R${goal.maxGoal}", 10f, y.toFloat(), textPaint)
+            canvas.drawText("Budget Goals:", 50f, y.toFloat(), textPaint)
             y += 25
+            canvas.drawText("- Minimum: R${goal.minGoal}", 70f, y.toFloat(), textPaint)
+            y += 20
+            canvas.drawText("- Maximum: R${goal.maxGoal}", 70f, y.toFloat(), textPaint)
+            y += 30
         }
 
         // Days left
-        canvas.drawText("Days Left: $daysLeft", 10f, y.toFloat(), textPaint)
+        canvas.drawText("Days remaining in month: $daysLeft", 50f, y.toFloat(), textPaint)
+        y += 40
+
+        // Category breakdown header
+        canvas.drawText("Category Breakdown:", 50f, y.toFloat(), titlePaint)
         y += 30
 
-        // Category breakdown
-        canvas.drawText("Category Breakdown:", 10f, y.toFloat(), titlePaint)
-        y += 25
-
+        // Category items
         for ((category, amount) in categoryTotals) {
-            if (y > 580) { // Check if we have space for more text
+            if (y > 800) { // Check if we're near bottom of page
+                canvas.drawText("-- Continued on next page --", 50f, 820f, smallTextPaint)
                 break
             }
-            val line = "$category: R%.2f".format(amount)
-            canvas.drawText(line, 10f, y.toFloat(), textPaint)
-            y += 20
+            val line = "• $category: R%.2f".format(amount)
+            canvas.drawText(line, 60f, y.toFloat(), textPaint)
+            y += 25
         }
 
         document.finishPage(page)
 
-        // Save the PDF to external storage (Documents folder)
-        val pdfFile = File(getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "SpendingReport.pdf")
+        // Save the PDF
+        val downloadsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+        val pdfFile = File(downloadsDir, "SpendingReport_${System.currentTimeMillis()}.pdf")
+
         try {
             FileOutputStream(pdfFile).use { outputStream ->
                 document.writeTo(outputStream)
             }
-            Toast.makeText(this, "PDF saved to ${pdfFile.absolutePath}", Toast.LENGTH_LONG).show()
+            Toast.makeText(
+                this,
+                "✅ Report saved to: ${pdfFile.absolutePath}",
+                Toast.LENGTH_LONG
+            ).show()
         } catch (e: Exception) {
-            e.printStackTrace()
-            Toast.makeText(this, "Error saving PDF: ${e.message}", Toast.LENGTH_LONG).show()
+            Log.e("PDF_SAVE", "Failed to save PDF", e)
+            Toast.makeText(
+                this,
+                "❌ Failed to save PDF: ${e.message}",
+                Toast.LENGTH_LONG
+            ).show()
         } finally {
             document.close()
         }
     }
-
 }
