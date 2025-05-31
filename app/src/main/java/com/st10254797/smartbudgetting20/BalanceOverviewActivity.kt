@@ -34,6 +34,8 @@ import android.graphics.Color
 import com.github.mikephil.charting.animation.Easing
 import com.google.firebase.Timestamp
 import android.util.Log
+import com.github.mikephil.charting.formatter.ValueFormatter
+import com.github.mikephil.charting.utils.ViewPortHandler
 
 
 class BalanceOverviewActivity : AppCompatActivity() {
@@ -221,86 +223,117 @@ class BalanceOverviewActivity : AppCompatActivity() {
     }
 
     private fun updatePieChart(dataMap: Map<String, Double>) {
-        val maxCategories = 10
-        val sortedEntries = dataMap.entries.sortedByDescending { it.value }
+        val filteredData = dataMap.filterValues { it > 0 }
+        if (filteredData.isEmpty()) {
+            pieChart.apply {
+                clear()
+                setNoDataText("No spending data available")
+                setNoDataTextColor(Color.GRAY)
+                setNoDataTextTypeface(Typeface.DEFAULT_BOLD)
+                invalidate()
+            }
+            return
+        }
+
+        val maxCategories = 5
+        val sortedEntries = filteredData.entries.sortedByDescending { it.value }
+        val totalAmount = sortedEntries.sumOf { it.value }
 
         val entries = mutableListOf<PieEntry>()
 
         if (sortedEntries.size <= maxCategories) {
             sortedEntries.forEach { (category, amount) ->
-                entries.add(PieEntry(amount.toFloat(), category))
+                val percentage = (amount / totalAmount * 100).toFloat()
+                val displayName = if (category.length > 15) "${category.take(12)}..." else category
+                entries.add(PieEntry(percentage, displayName))
             }
         } else {
             val topCategories = sortedEntries.take(maxCategories - 1)
             val others = sortedEntries.drop(maxCategories - 1)
+            val othersSum = others.sumOf { it.value }
+            val othersPercentage = (othersSum / totalAmount * 100).toFloat()
 
             topCategories.forEach { (category, amount) ->
-                val shortenedLabel = if (category.length > 12) category.take(10) + "..." else category
-                entries.add(PieEntry(amount.toFloat(), shortenedLabel))
+                val percentage = (amount / totalAmount * 100).toFloat()
+                val displayName = if (category.length > 15) "${category.take(12)}..." else category
+                entries.add(PieEntry(percentage, displayName))
             }
 
-            val othersSum = others.sumOf { it.value }
-            entries.add(PieEntry(othersSum.toFloat(), "Others"))
+            entries.add(PieEntry(othersPercentage, "Others"))
         }
 
+        val colors = listOf(
+            Color.parseColor("#F44336"),
+            Color.parseColor("#2196F3"),
+            Color.parseColor("#4CAF50"),
+            Color.parseColor("#FFEB3B"),
+            Color.parseColor("#9C27B0"),
+            Color.parseColor("#009688"),
+            Color.parseColor("#FF9800"),
+            Color.parseColor("#795548"),
+            Color.parseColor("#3F51B5"),
+            Color.parseColor("#9E9E9E")
+        )
+
         val dataSet = PieDataSet(entries, "").apply {
-            setColors(
-                Color.rgb(244, 67, 54),
-                Color.rgb(33, 150, 243),
-                Color.rgb(76, 175, 80),
-                Color.rgb(255, 193, 7),
-                Color.rgb(156, 39, 176),
-                Color.rgb(0, 150, 136),
-                Color.rgb(255, 87, 34),
-                Color.rgb(121, 85, 72),
-                Color.rgb(63, 81, 181),
-                Color.rgb(189, 189, 189)
-            )
-            valueTextSize = 14f
+            this.colors = colors
+            valueTextSize = 12f
             valueTextColor = Color.WHITE
-            sliceSpace = 3f
-            selectionShift = 8f
+            sliceSpace = 2f
+            selectionShift = 5f
             setDrawValues(true)
             valueFormatter = PercentFormatter(pieChart)
+            yValuePosition = PieDataSet.ValuePosition.INSIDE_SLICE
+            valueLinePart1Length = 0.4f
+            valueLinePart2Length = 0.4f
+            valueLineColor = Color.WHITE
         }
 
         pieChart.apply {
             data = PieData(dataSet)
             description.isEnabled = false
+            setDrawEntryLabels(true) // <-- Show category names
+            setEntryLabelColor(Color.BLACK)
+            setEntryLabelTextSize(12f)
 
             isDrawHoleEnabled = true
             holeRadius = 45f
-            transparentCircleRadius = 50f
-            setHoleColor(Color.WHITE)
+            setTransparentCircleRadius(50f)
+            setHoleColor(Color.TRANSPARENT)
+            setTransparentCircleColor(Color.argb(100, 0, 0, 0))
 
-            setCenterText("Spending Split")
-            setCenterTextSize(18f)
+            setCenterText("Spending\nBreakdown")
+            setCenterTextSize(16f)
             setCenterTextColor(Color.DKGRAY)
+            setCenterTextTypeface(Typeface.DEFAULT_BOLD)
 
+            rotationAngle = 0f
+            isRotationEnabled = true
             setUsePercentValues(true)
-            setDrawEntryLabels(true)
-            setEntryLabelColor(Color.BLACK)
-            setEntryLabelTextSize(12f)
-            setExtraOffsets(40f, 20f, 40f, 80f)
+            setExtraOffsets(24f, 24f, 24f, 24f)
 
             legend.apply {
                 isEnabled = true
-                textSize = 14f
+                textSize = 12f
+                textColor = Color.DKGRAY
                 form = Legend.LegendForm.CIRCLE
-                setDrawInside(false)
+                formSize = 12f
+                formToTextSpace = 8f
                 verticalAlignment = Legend.LegendVerticalAlignment.BOTTOM
-                horizontalAlignment = Legend.LegendHorizontalAlignment.LEFT
+                horizontalAlignment = Legend.LegendHorizontalAlignment.CENTER
                 orientation = Legend.LegendOrientation.HORIZONTAL
                 isWordWrapEnabled = true
-                yOffset = 6f
-                xEntrySpace = 10f
-                xOffset = -60f
+                yOffset = 16f
+                xOffset = 0f
             }
 
-            animateY(1400, Easing.EaseInOutQuad)
+            animateY(1000, Easing.EaseInOutQuad)
+            highlightValues(null)
             invalidate()
         }
     }
+
+
 
     private fun updateProgressBar(totalSpent: Double, goal: Goal?) {
         if (goal != null && goal.maxGoal > 0) {
