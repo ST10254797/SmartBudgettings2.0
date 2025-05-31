@@ -56,6 +56,11 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        binding.buttonBalanceOverview.setOnClickListener {
+            val intent = Intent(this, BalanceOverviewActivity::class.java)
+            startActivity(intent)
+        }
+
 
     }
 }
