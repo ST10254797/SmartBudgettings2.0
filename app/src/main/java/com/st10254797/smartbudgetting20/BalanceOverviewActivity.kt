@@ -36,6 +36,8 @@ import com.google.firebase.Timestamp
 import android.util.Log
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.utils.ViewPortHandler
+import androidx.core.content.ContextCompat
+import android.content.res.ColorStateList
 
 
 class BalanceOverviewActivity : AppCompatActivity() {
@@ -339,10 +341,23 @@ class BalanceOverviewActivity : AppCompatActivity() {
         if (goal != null && goal.maxGoal > 0) {
             val progress = ((totalSpent / goal.maxGoal) * 100).coerceAtMost(100.0)
             progressBar.progress = progress.toInt()
+
+            val isUnderBudget = totalSpent <= goal.maxGoal
+            val color = if (isUnderBudget) {
+                ContextCompat.getColor(this, R.color.green)  // or R.color.material_green_500
+            } else {
+                ContextCompat.getColor(this, R.color.material_red_500)
+            }
+
+            progressBar.progressTintList = ColorStateList.valueOf(color)
         } else {
             progressBar.progress = 0
+            progressBar.progressTintList = ColorStateList.valueOf(
+                ContextCompat.getColor(this , R.color.material_grey_500)
+            )
         }
     }
+
 
     private fun updateBudgetStatus(totalSpent: Double, goal: Goal?) {
         if (goal == null || goal.maxGoal <= 0) {
