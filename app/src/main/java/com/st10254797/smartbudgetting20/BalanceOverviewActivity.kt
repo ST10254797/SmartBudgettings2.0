@@ -155,13 +155,13 @@ class BalanceOverviewActivity : AppCompatActivity() {
                 val sdf = SimpleDateFormat("d MMMM yyyy 'at' HH:mm:ss 'UTC'X", Locale.getDefault())
                 sdf.timeZone = TimeZone.getTimeZone("UTC")
 
-                val thisMonthCal = Calendar.getInstance(TimeZone.getTimeZone("UTC")).apply {
-                    set(Calendar.DAY_OF_MONTH, 1)
-                    set(Calendar.HOUR_OF_DAY, 0)
-                    set(Calendar.MINUTE, 0)
-                    set(Calendar.SECOND, 0)
-                    set(Calendar.MILLISECOND, 0)
-                }
+                val thisMonthCal = Calendar.getInstance() // no timezone specified, uses device local time
+                thisMonthCal.set(Calendar.DAY_OF_MONTH, 1)
+                thisMonthCal.set(Calendar.HOUR_OF_DAY, 0)
+                thisMonthCal.set(Calendar.MINUTE, 0)
+                thisMonthCal.set(Calendar.SECOND, 0)
+                thisMonthCal.set(Calendar.MILLISECOND, 0)
+
                 val thisMonth = thisMonthCal.time
 
                 Log.d("DATE_FILTER", "Filtering expenses after: $thisMonth")
@@ -467,13 +467,13 @@ class BalanceOverviewActivity : AppCompatActivity() {
                 val sdf = SimpleDateFormat("d MMMM yyyy 'at' HH:mm:ss 'UTC'X", Locale.getDefault())
                 sdf.timeZone = TimeZone.getTimeZone("UTC")
 
-                val thisMonthCal = Calendar.getInstance(TimeZone.getTimeZone("UTC")).apply {
-                    set(Calendar.DAY_OF_MONTH, 1)
-                    set(Calendar.HOUR_OF_DAY, 0)
-                    set(Calendar.MINUTE, 0)
-                    set(Calendar.SECOND, 0)
-                    set(Calendar.MILLISECOND, 0)
-                }
+                val thisMonthCal = Calendar.getInstance() // no timezone specified, uses device local time
+                thisMonthCal.set(Calendar.DAY_OF_MONTH, 1)
+                thisMonthCal.set(Calendar.HOUR_OF_DAY, 0)
+                thisMonthCal.set(Calendar.MINUTE, 0)
+                thisMonthCal.set(Calendar.SECOND, 0)
+                thisMonthCal.set(Calendar.MILLISECOND, 0)
+
                 val thisMonth = thisMonthCal.time
 
                 // Filter expenses for current month
