@@ -9,6 +9,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import android.content.Intent
+
 
 class GoalSettingsActivity : AppCompatActivity() {
 
@@ -30,8 +33,36 @@ class GoalSettingsActivity : AppCompatActivity() {
         maxGoalInput = findViewById(R.id.editTextMaxGoal)
         goalTextView = findViewById(R.id.textViewGoalValues)
         val saveButton = findViewById<Button>(R.id.buttonSaveGoals)
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        bottomNavigationView.selectedItemId = R.id.goals // Highlight current menu item
 
-        // Get current user's UID from Firebase Auth
+        bottomNavigationView.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.Add_Expense -> {
+                    startActivity(Intent(this, ExpenseActivity::class.java))
+                    overridePendingTransition(0, 0)
+                    true
+                }
+                R.id.Back_Home -> {
+                    startActivity(Intent(this, MainActivity::class.java))
+                    overridePendingTransition(0, 0)
+                    true
+                }
+                R.id.goals -> {
+                    // Already on goals screen
+                    Toast.makeText(this, "You are already on Goals", Toast.LENGTH_SHORT).show()
+                    true
+                }
+                R.id.categories -> {
+                    startActivity(Intent(this, CategoryActivity::class.java))
+                    overridePendingTransition(0, 0)
+                    true
+                }
+                else -> false
+            }
+        }
+
+    // Get current user's UID from Firebase Auth
         val currentUser = FirebaseAuth.getInstance().currentUser
         if (currentUser == null) {
             Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show()

@@ -14,5 +14,9 @@
         android:id="@+id/Add_Expense"
         android:icon="@drawable/add_expense"/>
 
+    <item android:title="Goals"
+        android:id="@+id/goals"
+        android:icon="@drawable/ic_goals"/>
+
 
 </menu>

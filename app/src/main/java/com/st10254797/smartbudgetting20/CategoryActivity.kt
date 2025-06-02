@@ -43,6 +43,7 @@ class CategoryActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.Add_Expense -> startActivity(Intent(this, ExpenseActivity::class.java))
                 R.id.Back_Home -> startActivity(Intent(this, MainActivity::class.java))
+                R.id.goals -> startActivity(Intent(this, GoalSettingsActivity::class.java))
                 R.id.categories -> {
                     // Already on this screen
                     Toast.makeText(this, "You are already on Categories", Toast.LENGTH_SHORT).show()
