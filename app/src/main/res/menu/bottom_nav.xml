@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <item android:title="Home"
+        android:id="@+id/Back_Home"
+        android:icon="@drawable/back_home"/>
+
+    <item android:title="Categories"
+        android:id="@+id/categories"
+        android:icon="@drawable/ic_categories"/>
+
+
     <item android:title="Add Expense"
         android:id="@+id/Add_Expense"
         android:icon="@drawable/add_expense"/>
+
+
 </menu>

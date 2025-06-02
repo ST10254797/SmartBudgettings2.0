@@ -129,10 +129,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         app:cardBackgroundColor="#1E1E1E"
         app:cardCornerRadius="16dp"
         app:cardElevation="4dp"
-        app:layout_constraintBottom_toTopOf="@+id/navigationButtonsCard"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
@@ -166,44 +167,15 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
-    <!-- Navigation Buttons Card -->
-    <androidx.cardview.widget.CardView
-        android:id="@+id/navigationButtonsCard"
+    <!-- Bottom Navigation -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:cardBackgroundColor="#1E1E1E"
-        app:cardCornerRadius="16dp"
-        app:cardElevation="4dp"
+        android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
-
-            <Button
-                android:id="@+id/buttonBackToHome"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Back to Home"
-                android:backgroundTint="#2196F3"
-                android:textColor="#FFFFFF"
-                android:elevation="4dp"
-                android:layout_marginBottom="8dp"/>
-
-            <Button
-                android:id="@+id/buttonGoToExpense"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Go to Expense Page"
-                android:backgroundTint="#2196F3"
-                android:textColor="#FFFFFF"
-                android:elevation="4dp"/>
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_nav"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

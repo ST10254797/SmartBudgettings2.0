@@ -39,6 +39,17 @@ class CategoryActivity : AppCompatActivity() {
             updateCategoryList()
             Toast.makeText(this, "Refreshing...", Toast.LENGTH_SHORT).show()
         }
+        binding.bottomNavigationView.setOnItemSelectedListener {
+            when (it.itemId) {
+                R.id.Add_Expense -> startActivity(Intent(this, ExpenseActivity::class.java))
+                R.id.Back_Home -> startActivity(Intent(this, MainActivity::class.java))
+                R.id.categories -> {
+                    // Already on this screen
+                    Toast.makeText(this, "You are already on Categories", Toast.LENGTH_SHORT).show()
+                }
+            }
+            true
+        }
     }
 
     private fun setupWindowInsets() {
@@ -52,8 +63,8 @@ class CategoryActivity : AppCompatActivity() {
     private fun setupClickListeners() {
         binding.buttonAddCategory.setOnClickListener { handleAddCategory() }
         binding.buttonDeleteCategory.setOnClickListener { handleDeleteCategory() }
-        binding.buttonBackToHome.setOnClickListener { navigateToMainActivity() }
-        binding.buttonGoToExpense.setOnClickListener { navigateToExpenseActivity() }
+//        binding.buttonBackToHome.setOnClickListener { navigateToMainActivity() }
+//        binding.buttonGoToExpense.setOnClickListener { navigateToExpenseActivity() }
     }
 
     private fun handleAddCategory() {

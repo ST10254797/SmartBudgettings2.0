@@ -66,7 +66,8 @@ class MainActivity : AppCompatActivity() {
             when(it.itemId){
 
                 R.id.Add_Expense -> startActivity(Intent(this, ExpenseActivity::class.java))
-
+                R.id.Back_Home -> startActivity(Intent(this, MainActivity::class.java))
+                R.id.categories-> startActivity(Intent(this, CategoryActivity::class.java))
                 else -> {
 
                 }
