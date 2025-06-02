@@ -9,7 +9,7 @@
     android:background="#121212"
     tools:context=".CategoryGraphActivity">
 
-    <!-- Title Card (Kept your original green styling) -->
+    <!-- Title Card -->
     <androidx.cardview.widget.CardView
         android:id="@+id/titleCard"
         android:layout_width="0dp"
@@ -42,7 +42,7 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
-    <!-- Date Range Fields (Unchanged from your original) -->
+    <!-- Date Range Fields -->
     <LinearLayout
         android:id="@+id/dateRangeContainer"
         android:layout_width="0dp"
@@ -95,7 +95,7 @@
             tools:ignore="TouchTargetSizeCheck" />
     </LinearLayout>
 
-    <!-- Buttons (Unchanged) -->
+    <!-- Buttons -->
     <LinearLayout
         android:id="@+id/buttonContainer"
         android:layout_width="0dp"
@@ -128,7 +128,7 @@
             android:text="Clear Filter" />
     </LinearLayout>
 
-    <!-- Bar Chart - NOW WITH WHITE BACKGROUND as requested -->
+    <!-- Bar Chart -->
     <androidx.cardview.widget.CardView
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -136,7 +136,7 @@
         app:cardBackgroundColor="#FFFFFF"
         app:cardCornerRadius="8dp"
         app:cardElevation="4dp"
-        app:layout_constraintBottom_toTopOf="@id/backButton"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/buttonContainer">
@@ -148,15 +148,15 @@
             android:padding="8dp" />
     </androidx.cardview.widget.CardView>
 
-    <!-- Back Button (Unchanged) -->
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/backButton"
-        android:layout_width="wrap_content"
+    <!-- Bottom Navigation View -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Back"
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_nav" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

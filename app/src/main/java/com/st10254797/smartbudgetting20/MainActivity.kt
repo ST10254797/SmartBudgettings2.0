@@ -68,6 +68,7 @@ class MainActivity : AppCompatActivity() {
 
                 R.id.Add_Expense -> startActivity(Intent(this, ExpenseActivity::class.java))
                 R.id.goals -> startActivity(Intent(this, GoalSettingsActivity::class.java))
+                R.id.graph -> startActivity(Intent(this, CategoryGraphActivity::class.java))
                 R.id.Back_Home -> {
                     // Already on home, do nothing or show toast
                     Toast.makeText(this, "You are already on Home", Toast.LENGTH_SHORT).show()

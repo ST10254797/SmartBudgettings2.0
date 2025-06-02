@@ -58,11 +58,16 @@ class GoalSettingsActivity : AppCompatActivity() {
                     overridePendingTransition(0, 0)
                     true
                 }
+                R.id.graph -> {
+                    startActivity(Intent(this, CategoryGraphActivity::class.java))
+                    overridePendingTransition(0, 0)
+                    true
+                }
                 else -> false
             }
         }
 
-    // Get current user's UID from Firebase Auth
+        // Get current user's UID from Firebase Auth
         val currentUser = FirebaseAuth.getInstance().currentUser
         if (currentUser == null) {
             Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show()

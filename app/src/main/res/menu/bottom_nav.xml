@@ -18,5 +18,8 @@
         android:id="@+id/goals"
         android:icon="@drawable/ic_goals"/>
 
+    <item android:title="Graph"
+        android:id="@+id/graph"
+        android:icon="@drawable/ic_graph"/>
 
 </menu>

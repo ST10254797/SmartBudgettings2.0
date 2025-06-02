@@ -94,6 +94,9 @@ class ExpenseActivity : AppCompatActivity() {
                 R.id.goals -> {
                     startActivity(Intent(this, GoalSettingsActivity::class.java))
                 }
+                R.id.graph -> {
+                    startActivity(Intent(this, CategoryGraphActivity::class.java))
+                }
                 R.id.categories -> {
                     startActivity(Intent(this, CategoryActivity::class.java))
                 }

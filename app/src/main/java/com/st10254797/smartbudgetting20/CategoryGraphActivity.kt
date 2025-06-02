@@ -26,6 +26,9 @@ import java.util.*
 import android.util.Log
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import android.content.Intent
+
 
 
 class CategoryGraphActivity : AppCompatActivity() {
@@ -33,9 +36,10 @@ class CategoryGraphActivity : AppCompatActivity() {
     private lateinit var barChart: BarChart
     private lateinit var btnRefreshGraph: androidx.appcompat.widget.AppCompatButton
     private lateinit var btnClearFilter: androidx.appcompat.widget.AppCompatButton
-    private lateinit var backButton: androidx.appcompat.widget.AppCompatButton
+    // private lateinit var backButton: androidx.appcompat.widget.AppCompatButton
     private lateinit var startDateEditText: EditText
     private lateinit var endDateEditText: EditText
+    private lateinit var bottomNavigationView: com.google.android.material.bottomnavigation.BottomNavigationView
 
     private val db = FirebaseFirestore.getInstance()
     private val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
@@ -50,16 +54,17 @@ class CategoryGraphActivity : AppCompatActivity() {
         barChart = findViewById(R.id.barChart)
         btnRefreshGraph = findViewById(R.id.btnRefreshGraph)
         btnClearFilter = findViewById(R.id.btnClearFilter)
-        backButton = findViewById(R.id.backButton)
+        // backButton = findViewById(R.id.backButton)
         startDateEditText = findViewById(R.id.startDateEditText)
         endDateEditText = findViewById(R.id.endDateEditText)
+        bottomNavigationView = findViewById(R.id.bottomNavigationView)  // Make sure your layout has this ID
 
         setupChartAppearance()
 
         startDateEditText.setOnClickListener { pickDate(true) }
         endDateEditText.setOnClickListener { pickDate(false) }
 
-        backButton.setOnClickListener { finish() }
+        // backButton.setOnClickListener { finish() }  // Commented out per request
         btnRefreshGraph.setOnClickListener { loadGraphData() }
         btnClearFilter.setOnClickListener {
             startDateString = null
@@ -70,9 +75,40 @@ class CategoryGraphActivity : AppCompatActivity() {
             loadGraphData()
         }
 
+        // Setup bottom navigation item selected listener
+        bottomNavigationView.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.Add_Expense -> {
+                    startActivity(Intent(this, ExpenseActivity::class.java))
+                    overridePendingTransition(0, 0)
+                    true
+                }
+                R.id.Back_Home -> {
+                    startActivity(Intent(this, MainActivity::class.java))
+                    overridePendingTransition(0, 0)
+                    true
+                }
+                R.id.goals -> {
+                    startActivity(Intent(this, GoalSettingsActivity::class.java))
+                    overridePendingTransition(0, 0)
+                    true
+                }
+                R.id.categories -> {
+                    startActivity(Intent(this, CategoryActivity::class.java))
+                    overridePendingTransition(0, 0)
+                    true
+                }
+                R.id.graph -> {
+                    // Already on graph screen
+                    Toast.makeText(this, "You are already on Graph", Toast.LENGTH_SHORT).show()
+                    true
+                }
+                else -> false
+            }
+        }
+
         loadGraphData()
     }
-
 
     private fun setupChartAppearance() {
         barChart.apply {
