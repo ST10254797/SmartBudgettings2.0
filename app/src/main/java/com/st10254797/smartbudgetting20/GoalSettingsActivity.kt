@@ -36,6 +36,12 @@ class GoalSettingsActivity : AppCompatActivity() {
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         bottomNavigationView.selectedItemId = R.id.goals // Highlight current menu item
 
+        val balanceButton = findViewById<Button>(R.id.buttonBalanceOverview)
+        balanceButton.setOnClickListener {
+            val intent = Intent(this, BalanceOverviewActivity::class.java)
+            startActivity(intent)
+        }
+
         bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.Add_Expense -> {
