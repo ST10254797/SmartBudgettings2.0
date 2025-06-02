@@ -22,6 +22,7 @@ import android.widget.ArrayAdapter
 import com.google.firebase.Timestamp
 import android.util.Log
 import android.graphics.Color
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
 
@@ -72,7 +73,7 @@ class ExpenseActivity : AppCompatActivity() {
         dateEditText = findViewById(R.id.dateEditText)
         saveExpenseBtn = findViewById(R.id.saveExpenseBtn)
         uploadImageBtn = findViewById(R.id.uploadImageBtn)
-        returnBtn = findViewById(R.id.returnBtn)
+        // returnBtn = findViewById(R.id.returnBtn)
         expensesListView = findViewById(R.id.expensesListView)
         startDateEditText = findViewById(R.id.startDateEditText)
         endDateEditText = findViewById(R.id.endDateEditText)
@@ -80,19 +81,39 @@ class ExpenseActivity : AppCompatActivity() {
         clearFilterButton = findViewById(R.id.clearFilterButton)
         budgetWarningTextView = findViewById(R.id.budgetWarningTextView)
 
-        // Call the coroutine function to setup categories spinner
+        // Bottom Navigation setup
+        val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        bottomNav.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.Add_Expense -> {
+                    Toast.makeText(this, "You are already on Expenses", Toast.LENGTH_SHORT).show()
+                }
+                R.id.Back_Home -> {
+                    startActivity(Intent(this, MainActivity::class.java))
+                }
+                R.id.categories -> {
+                    startActivity(Intent(this, CategoryActivity::class.java))
+                }
+            }
+            true
+        }
+
+        // Setup spinner
         setupCategorySpinner()
 
+        // Set click listeners
         uploadImageBtn.setOnClickListener { pickImage() }
         saveExpenseBtn.setOnClickListener { saveExpense() }
         filterDateButton.setOnClickListener { filterExpensesByDate() }
         clearFilterButton.setOnClickListener { clearExpenseFilter() }
-        returnBtn.setOnClickListener { finish() }
+        // returnBtn?.setOnClickListener { finish() } // uncomment if returnBtn is used
 
+        // Set date pickers
         dateEditText.setOnClickListener { showDatePicker(dateEditText) }
         startDateEditText.setOnClickListener { showDatePicker(startDateEditText) }
         endDateEditText.setOnClickListener { showDatePicker(endDateEditText) }
     }
+
 
     private fun setupCategorySpinner() {
         lifecycleScope.launch(Dispatchers.IO) {

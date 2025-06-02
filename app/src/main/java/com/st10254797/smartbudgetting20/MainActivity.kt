@@ -6,6 +6,7 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.st10254797.smartbudgetting20.databinding.ActivityMainBinding
+import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
 
@@ -66,7 +67,10 @@ class MainActivity : AppCompatActivity() {
             when(it.itemId){
 
                 R.id.Add_Expense -> startActivity(Intent(this, ExpenseActivity::class.java))
-                R.id.Back_Home -> startActivity(Intent(this, MainActivity::class.java))
+                R.id.Back_Home -> {
+                    // Already on home, do nothing or show toast
+                    Toast.makeText(this, "You are already on Home", Toast.LENGTH_SHORT).show()
+                }
                 R.id.categories-> startActivity(Intent(this, CategoryActivity::class.java))
                 else -> {
 

@@ -1,43 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
-    android:background="#121212"
-    android:padding="8dp">
+    android:orientation="vertical"
+    android:background="#121212">
 
-    <LinearLayout
-        android:orientation="vertical"
+    <!-- Scrollable content -->
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <!-- Add top spacing to push content down -->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="24dp" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true"
+        android:padding="8dp">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="8dp"
-            android:importantForAccessibility="yes">
+            android:orientation="vertical">
+
+            <!-- Spacer -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="24dp" />
 
             <!-- Budget Warning -->
             <TextView
                 android:id="@+id/budgetWarningTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="This expense exceeds your budget!"
+                android:background="#FFEBEE"
                 android:textColor="@android:color/holo_red_dark"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:visibility="gone"
-                android:text="This expense exceeds your budget!"
-                android:layout_marginBottom="4dp"
                 android:padding="8dp"
-                android:background="#FFEBEE" />
-
+                android:layout_marginBottom="4dp" />
 
             <!-- Input Fields -->
             <EditText
@@ -59,7 +58,6 @@
                 android:textColor="#000000"
                 android:autofillHints="description" />
 
-            <!-- Date Input -->
             <EditText
                 android:id="@+id/dateEditText"
                 android:layout_width="match_parent"
@@ -68,7 +66,6 @@
                 android:background="#FFFFFF"
                 android:textColor="#000000"
                 android:autofillHints="expenseDate"
-                android:accessibilityLiveRegion="polite"
                 android:focusable="false"
                 android:clickable="true"
                 android:drawableEnd="@android:drawable/ic_menu_my_calendar"
@@ -80,7 +77,7 @@
                 android:layout_height="48dp"
                 android:background="#FFFFFF" />
 
-            <!-- Image Section -->
+            <!-- Image Upload -->
             <Button
                 android:id="@+id/uploadImageBtn"
                 android:layout_width="match_parent"
@@ -93,12 +90,12 @@
                 android:id="@+id/imagePreview"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
-                android:scaleType="centerCrop"
                 android:visibility="gone"
+                android:scaleType="centerCrop"
                 android:background="#616161"
                 android:contentDescription="Selected image preview" />
 
-            <!-- Action Buttons -->
+            <!-- Save Button -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -110,7 +107,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:text="Save Expense"
-                    android:layout_marginEnd="4dp"
                     android:backgroundTint="#43A047"
                     android:textColor="#FFFFFF" />
             </LinearLayout>
@@ -150,10 +146,7 @@
                 android:orientation="vertical"
                 android:padding="4dp"
                 android:background="#FFFFFF"
-                android:elevation="1dp">
-                <!-- Optionally add white text if you keep dark background -->
-                <!-- android:textColor="#FFFFFF" in child TextViews -->
-            </LinearLayout>
+                android:elevation="1dp" />
 
             <!-- Date Filters -->
             <LinearLayout
@@ -171,12 +164,10 @@
                     android:background="#FFFFFF"
                     android:layout_marginEnd="4dp"
                     android:autofillHints="filterStartDate"
-                    android:accessibilityLiveRegion="polite"
                     android:focusable="false"
                     android:clickable="true"
                     android:drawableEnd="@android:drawable/ic_menu_my_calendar"
                     android:inputType="none" />
-
 
                 <EditText
                     android:id="@+id/endDateEditText"
@@ -186,7 +177,6 @@
                     android:hint="End Date"
                     android:background="#FFFFFF"
                     android:autofillHints="filterEndDate"
-                    android:accessibilityLiveRegion="polite"
                     android:focusable="false"
                     android:clickable="true"
                     android:drawableEnd="@android:drawable/ic_menu_my_calendar"
@@ -220,24 +210,14 @@
                     android:backgroundTint="#BDBDBD"
                     android:textColor="#000000" />
             </LinearLayout>
-
-            <!-- Return Button -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="8dp">
-
-                <Button
-                    android:id="@+id/returnBtn"
-                    android:layout_width="0dp"
-                    android:layout_height="48dp"
-                    android:layout_weight="1"
-                    android:text="Return"
-                    android:backgroundTint="#43A047"
-                    android:textColor="#FFFFFF" />
-            </LinearLayout>
-
         </LinearLayout>
-    </LinearLayout>
-</ScrollView>
+    </ScrollView>
+
+    <!-- Bottom Navigation -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:menu="@menu/bottom_nav" />
+
+</LinearLayout>
