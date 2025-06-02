@@ -61,6 +61,19 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        binding.bottomNavigationView.setOnItemSelectedListener {
+
+            when(it.itemId){
+
+                R.id.Add_Expense -> startActivity(Intent(this, ExpenseActivity::class.java))
+
+                else -> {
+
+                }
+            }
+            true
+        }
+
 
     }
 }
