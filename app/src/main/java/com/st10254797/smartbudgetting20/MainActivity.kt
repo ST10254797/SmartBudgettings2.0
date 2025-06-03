@@ -29,7 +29,8 @@ class MainActivity : AppCompatActivity() {
         } else {
             // Show welcome message
             val email = firebaseAuth.currentUser?.email
-            binding.textViewWelcome.text = "Welcome, $email"
+            val name = email?.substringBefore("@")
+            binding.textViewWelcome.text = "Welcome, $name"
         }
 
         // Logout button functionality
@@ -40,27 +41,27 @@ class MainActivity : AppCompatActivity() {
             finish()
         }
         // Redirect to CategoryActivity
-        binding.buttonManageCategories.setOnClickListener {
-            val intent = Intent(this, CategoryActivity::class.java)
-            startActivity(intent)
-        }
-
-        val goalButton = findViewById<Button>(R.id.buttonSetGoals)
-        goalButton.setOnClickListener {
-            val intent = Intent(this, GoalSettingsActivity::class.java)
-            startActivity(intent)
-        }
-
-        // Redirect to CategoryGraphActivity (new)
-        binding.buttonShowCategoryGraph.setOnClickListener {
-            val intent = Intent(this, CategoryGraphActivity::class.java)
-            startActivity(intent)
-        }
-
-        binding.buttonBalanceOverview.setOnClickListener {
-            val intent = Intent(this, BalanceOverviewActivity::class.java)
-            startActivity(intent)
-        }
+//        binding.buttonManageCategories.setOnClickListener {
+//            val intent = Intent(this, CategoryActivity::class.java)
+//            startActivity(intent)
+//        }
+//
+//        val goalButton = findViewById<Button>(R.id.buttonSetGoals)
+//        goalButton.setOnClickListener {
+//            val intent = Intent(this, GoalSettingsActivity::class.java)
+//            startActivity(intent)
+//        }
+//
+//        // Redirect to CategoryGraphActivity (new)
+//        binding.buttonShowCategoryGraph.setOnClickListener {
+//            val intent = Intent(this, CategoryGraphActivity::class.java)
+//            startActivity(intent)
+//        }
+//
+//        binding.buttonBalanceOverview.setOnClickListener {
+//            val intent = Intent(this, BalanceOverviewActivity::class.java)
+//            startActivity(intent)
+//        }
 
         binding.bottomNavigationView.setOnItemSelectedListener {
 
