@@ -1,224 +1,483 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#121212">
+    android:background="#121212"
+    android:fitsSystemWindows="true">
 
-    <!-- Scrollable content -->
-    <ScrollView
+    <!-- Compact Header Section -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#1A4CAF50"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="12dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Expense Tracker"
+            android:textColor="#FFFFFF"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.02" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="Track your daily expenses"
+            android:textColor="#B0B0B0"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <!-- Main Content Layout -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:fillViewport="true"
-        android:padding="8dp">
+        android:orientation="vertical"
+        android:padding="12dp">
 
-        <LinearLayout
+        <!-- Budget Warning Card -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/budgetWarningCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_marginBottom="8dp"
+            android:visibility="gone"
+            app:cardBackgroundColor="#FF5252"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="2dp">
 
-            <!-- Spacer -->
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="24dp" />
-
-            <!-- Budget Warning -->
             <TextView
                 android:id="@+id/budgetWarningTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="This expense exceeds your budget!"
-                android:background="#FFEBEE"
-                android:textColor="@android:color/holo_red_dark"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:visibility="gone"
-                android:padding="8dp"
-                android:layout_marginBottom="4dp" />
-
-            <!-- Input Fields -->
-            <EditText
-                android:id="@+id/amountEditText"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:hint="Amount"
-                android:inputType="numberDecimal"
-                android:background="#FFFFFF"
-                android:textColor="#000000"
-                android:autofillHints="amount" />
-
-            <EditText
-                android:id="@+id/descriptionEditText"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:hint="Description"
-                android:background="#FFFFFF"
-                android:textColor="#000000"
-                android:autofillHints="description" />
-
-            <EditText
-                android:id="@+id/dateEditText"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:hint="Date (yyyy-MM-dd)"
-                android:background="#FFFFFF"
-                android:textColor="#000000"
-                android:autofillHints="expenseDate"
-                android:focusable="false"
-                android:clickable="true"
-                android:drawableEnd="@android:drawable/ic_menu_my_calendar"
-                android:inputType="none" />
-
-            <Spinner
-                android:id="@+id/categorySpinner"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:background="#FFFFFF" />
-
-            <!-- Image Upload -->
-            <Button
-                android:id="@+id/uploadImageBtn"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:text="Upload Image (optional)"
-                android:backgroundTint="#43A047"
-                android:textColor="#FFFFFF" />
-
-            <ImageView
-                android:id="@+id/imagePreview"
-                android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:visibility="gone"
-                android:scaleType="centerCrop"
-                android:background="#616161"
-                android:contentDescription="Selected image preview" />
-
-            <!-- Save Button -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="8dp">
-
-                <Button
-                    android:id="@+id/saveExpenseBtn"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:text="Save Expense"
-                    android:backgroundTint="#43A047"
-                    android:textColor="#FFFFFF" />
-            </LinearLayout>
-
-            <!-- Expenses List -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Expenses"
-                android:textStyle="bold"
-                android:textSize="18sp"
+                android:text="⚠ This expense exceeds your budget!"
                 android:textColor="#FFFFFF"
-                android:layout_marginTop="8dp" />
-
-            <ListView
-                android:id="@+id/expensesListView"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:divider="#757575"
-                android:dividerHeight="1dp"
-                android:background="#424242" />
-
-            <!-- Category Totals -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Category Totals"
+                android:textSize="14sp"
                 android:textStyle="bold"
-                android:textSize="18sp"
-                android:textColor="#FFFFFF"
-                android:layout_marginTop="8dp" />
+                android:padding="12dp"
+                android:gravity="center" />
+        </androidx.cardview.widget.CardView>
+
+        <!-- Compact Add New Expense Card -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            app:cardBackgroundColor="#1F1F1F"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp">
 
             <LinearLayout
-                android:id="@+id/categoryTotalsLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="4dp"
-                android:background="#FFFFFF"
-                android:elevation="1dp" />
+                android:padding="16dp">
 
-            <!-- Date Filters -->
+                <!-- Compact Section Header -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="12dp">
+
+                    <View
+                        android:layout_width="4dp"
+                        android:layout_height="18dp"
+                        android:background="#4CAF50"
+                        android:layout_marginEnd="8dp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Add New Expense"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <!-- Compact Input Row 1 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="8dp">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="4dp"
+                        app:boxBackgroundColor="#FFFFFF"
+                        app:boxStrokeWidth="1dp"
+                        app:boxStrokeWidthFocused="2dp"
+                        app:boxStrokeColor="#000000"
+                        app:hintTextColor="#707070"
+                        app:prefixText="R"
+                        app:prefixTextColor="#000000"
+                        android:hint="Amount">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/amountEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="numberDecimal"
+                            android:textColor="#000000"
+                            android:textColorHint="#707070"
+                            android:textSize="14sp"
+                            android:autofillHints="amount" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="4dp"
+                        app:boxBackgroundColor="#FFFFFF"
+                        app:boxStrokeWidth="1dp"
+                        app:boxStrokeWidthFocused="2dp"
+                        app:boxStrokeColor="#000000"
+                        app:hintTextColor="#707070"
+                        android:hint="Description">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/descriptionEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="#000000"
+                            android:textColorHint="#707070"
+                            android:textSize="14sp"
+                            android:autofillHints="description" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <!-- Compact Input Row 2 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="12dp">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="0dp"
+                        android:layout_height="56dp"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="4dp"
+                        app:boxBackgroundColor="#FFFFFF"
+                        app:boxStrokeWidth="1dp"
+                        app:boxStrokeWidthFocused="2dp"
+                        app:boxStrokeColor="#000000"
+                        app:hintTextColor="#707070"
+                        app:endIconMode="custom"
+                        app:endIconDrawable="@android:drawable/ic_menu_my_calendar"
+                        app:endIconTint="#000000"
+                        android:hint="Date">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/dateEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingTop="0dp"
+                            android:paddingBottom="0dp"
+                            android:gravity="center_vertical"
+                            android:textColor="#000000"
+                            android:textColorHint="#707070"
+                            android:textSize="14sp"
+                            android:autofillHints="expenseDate"
+                            android:focusable="false"
+                            android:clickable="true"
+                            android:inputType="none" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="56dp"
+                        android:layout_weight="1"
+                        android:layout_marginStart="4dp"
+                        android:orientation="vertical"
+                        android:gravity="center_vertical">
+
+                        <Spinner
+                            android:id="@+id/categorySpinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="#FFFFFF"
+                            android:gravity="center_vertical"
+                            android:paddingStart="16dp"
+                            android:paddingTop="0dp"
+                            android:paddingEnd="16dp"
+                            android:paddingBottom="0dp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- Compact Button Row -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/uploadImageBtn"
+                        android:layout_width="0dp"
+                        android:layout_height="42dp"
+                        android:layout_marginEnd="4dp"
+                        android:layout_weight="1"
+                        android:backgroundTint="#FF9800"
+                        android:text="📎 Receipt"
+                        android:textColor="#FFFFFF"
+                        android:textSize="12sp"
+                        app:cornerRadius="8dp"
+                        tools:ignore="TouchTargetSizeCheck" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/saveExpenseBtn"
+                        android:layout_width="0dp"
+                        android:layout_height="42dp"
+                        android:layout_marginStart="4dp"
+                        android:layout_weight="1"
+                        android:backgroundTint="#4CAF50"
+                        android:text="💾 Save"
+                        android:textColor="#FFFFFF"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        app:cornerRadius="8dp"
+                        tools:ignore="TouchTargetSizeCheck" />
+                </LinearLayout>
+
+                <!-- Hidden Image Preview -->
+                <ImageView
+                    android:id="@+id/imagePreview"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_marginTop="8dp"
+                    android:visibility="gone"
+                    android:scaleType="centerCrop"
+                    android:background="#2A2A2A"
+                    android:contentDescription="Selected image preview" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Recent Expenses with ScrollView -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginBottom="8dp"
+            app:cardBackgroundColor="#1F1F1F"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp">
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="8dp">
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="12dp">
 
-                <EditText
-                    android:id="@+id/startDateEditText"
-                    android:layout_width="0dp"
-                    android:layout_height="48dp"
-                    android:layout_weight="1"
-                    android:hint="Start Date"
-                    android:background="#FFFFFF"
-                    android:layout_marginEnd="4dp"
-                    android:autofillHints="filterStartDate"
-                    android:focusable="false"
-                    android:clickable="true"
-                    android:drawableEnd="@android:drawable/ic_menu_my_calendar"
-                    android:inputType="none" />
+                <!-- Section Header -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="8dp">
 
-                <EditText
-                    android:id="@+id/endDateEditText"
-                    android:layout_width="0dp"
-                    android:layout_height="48dp"
+                    <View
+                        android:layout_width="4dp"
+                        android:layout_height="18dp"
+                        android:background="#2196F3"
+                        android:layout_marginEnd="8dp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Recent Expenses"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <!-- ScrollView for ListView -->
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:hint="End Date"
-                    android:background="#FFFFFF"
-                    android:autofillHints="filterEndDate"
-                    android:focusable="false"
-                    android:clickable="true"
-                    android:drawableEnd="@android:drawable/ic_menu_my_calendar"
-                    android:inputType="none" />
+                    android:fillViewport="true">
+
+                    <ListView
+                        android:id="@+id/expensesListView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#262626"
+                        android:divider="#757575"
+                        android:dividerHeight="1dp"
+                        android:scrollbars="vertical" />
+                </ScrollView>
             </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-            <!-- Filter Buttons -->
-            <LinearLayout
-                android:layout_width="match_parent"
+        <!-- Compact Bottom Section with Category Totals and Filters -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <!-- Category Totals - Compact -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="8dp"
-                android:gravity="center">
+                android:layout_weight="1"
+                android:layout_marginEnd="4dp"
+                app:cardBackgroundColor="#1F1F1F"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="2dp">
 
-                <Button
-                    android:id="@+id/filterDateButton"
-                    android:layout_width="0dp"
-                    android:layout_height="48dp"
-                    android:layout_weight="1"
-                    android:text="Filter"
-                    android:layout_marginEnd="4dp"
-                    android:backgroundTint="#43A047"
-                    android:textColor="#FFFFFF" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="8dp">
 
-                <Button
-                    android:id="@+id/clearFilterButton"
-                    android:layout_width="0dp"
-                    android:layout_height="48dp"
-                    android:layout_weight="1"
-                    android:text="Clear"
-                    android:backgroundTint="#BDBDBD"
-                    android:textColor="#000000" />
-            </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Category Totals"
+                        android:textColor="#FFFFFF"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="4dp" />
+
+                    <LinearLayout
+                        android:id="@+id/categoryTotalsLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:background="#262626"
+                        android:padding="8dp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Date Filters - Compact -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="4dp"
+                app:cardBackgroundColor="#1F1F1F"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Date Filter"
+                        android:textColor="#FFFFFF"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="4dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="4dp">
+
+                        <EditText
+                            android:id="@+id/startDateEditText"
+                            android:layout_width="0dp"
+                            android:layout_height="32dp"
+                            android:layout_marginEnd="2dp"
+                            android:layout_weight="1"
+                            android:autofillHints="filterStartDate"
+                            android:background="#2A2A2A"
+                            android:clickable="true"
+                            android:focusable="false"
+                            android:hint="Start"
+                            android:inputType="none"
+                            android:padding="4dp"
+                            android:textColor="#FFFFFF"
+                            android:textColorHint="#707070"
+                            android:textSize="11sp"
+                            tools:ignore="TouchTargetSizeCheck" />
+
+                        <EditText
+                            android:id="@+id/endDateEditText"
+                            android:layout_width="0dp"
+                            android:layout_height="32dp"
+                            android:layout_marginStart="2dp"
+                            android:layout_weight="1"
+                            android:autofillHints="filterEndDate"
+                            android:background="#2A2A2A"
+                            android:clickable="true"
+                            android:focusable="false"
+                            android:hint="End"
+                            android:inputType="none"
+                            android:padding="4dp"
+                            android:textColor="#FFFFFF"
+                            android:textColorHint="#707070"
+                            android:textSize="11sp"
+                            tools:ignore="TouchTargetSizeCheck" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/filterDateButton"
+                            android:layout_width="0dp"
+                            android:layout_height="32dp"
+                            android:layout_marginEnd="2dp"
+                            android:layout_weight="1"
+                            android:backgroundTint="#4CAF50"
+                            android:text="🔍 Filter"
+                            android:textColor="#FFFFFF"
+                            android:textSize="10sp"
+                            tools:ignore="TouchTargetSizeCheck" />
+
+                        <Button
+                            android:id="@+id/clearFilterButton"
+                            android:layout_width="0dp"
+                            android:layout_height="32dp"
+                            android:layout_marginStart="2dp"
+                            android:layout_weight="1"
+                            android:backgroundTint="#757575"
+                            android:text="🗑 Clear"
+                            android:textColor="#FFFFFF"
+                            android:textSize="10sp"
+                            tools:ignore="TouchTargetSizeCheck" />
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
         </LinearLayout>
-    </ScrollView>
+    </LinearLayout>
 
     <!-- Bottom Navigation -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="8dp"
         android:background="@color/black"
+        android:elevation="4dp"
         app:itemIconTint="@color/green"
         app:itemTextColor="@color/green"
         app:menu="@menu/bottom_nav" />
