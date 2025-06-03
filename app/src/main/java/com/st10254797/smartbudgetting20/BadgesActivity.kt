@@ -54,7 +54,7 @@ class BadgesActivity : AppCompatActivity() {
             Badge("goal_setter", "Goal Setter", "Set a financial goal", isUnlocked = isBadgeUnlocked("goal_setter")),
             Badge("category_creator", "Category Creator", "Created a category", isUnlocked = isBadgeUnlocked("category_creator")),
             Badge("getting_started", "Getting Started", "Completed the first step", isUnlocked = isBadgeUnlocked("getting_started")),
-            Badge("expense_tracker", "Expense Tracker", "Logged your first expense", isUnlocked = isBadgeUnlocked("expense_tracker"))
+            Badge("expense_saver", "Expense Tracker", "Logged your first expense", isUnlocked = isBadgeUnlocked("expense_saver"))
         )
 
         badgeAdapter = BadgeAdapter(badges)
