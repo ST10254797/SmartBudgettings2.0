@@ -6,7 +6,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#121212"
+    android:background="#0F0F0F"
     tools:context=".CategoryGraphActivity">
 
     <!-- Title Card -->
@@ -14,12 +14,12 @@
         android:id="@+id/titleCard"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="24dp"
-        app:cardBackgroundColor="#4CAF50"
-        app:cardCornerRadius="16dp"
-        app:cardElevation="8dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="20dp"
+        app:cardBackgroundColor="#1E1E1E"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -29,123 +29,230 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center"
-            android:padding="16dp">
+            android:paddingTop="24dp"
+            android:paddingBottom="24dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp">
 
             <TextView
                 android:id="@+id/graphTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Category Spending Graph"
-                android:textColor="#000000"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:text="Category Spending Analysis"
+                android:textColor="#4CAF50"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.02" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Track your expenses by category"
+                android:textColor="#B0B0B0"
+                android:textSize="14sp"
+                android:layout_marginTop="4dp"
+                android:alpha="0.8" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
-    <!-- Date Range Fields -->
-    <LinearLayout
-        android:id="@+id/dateRangeContainer"
+    <!-- Date Range Section -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/dateRangeCard"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        app:cardBackgroundColor="#1E1E1E"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/titleCard">
 
-        <EditText
-            android:id="@+id/startDateEditText"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:layout_weight="1"
-            android:background="#FFFFFF"
-            android:textColor="#000000"
-            android:hint="Start Date"
-            android:inputType="none"
-            android:focusable="false"
-            android:clickable="true"
-            android:drawableEnd="@android:drawable/ic_menu_my_calendar"
-            android:padding="10dp"
-            android:autofillHints="startDate"
-            android:accessibilityLiveRegion="polite"
-            tools:ignore="TouchTargetSizeCheck" />
-
-        <Space
-            android:layout_width="16dp"
-            android:layout_height="wrap_content"/>
-
-        <EditText
-            android:id="@+id/endDateEditText"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:layout_weight="1"
-            android:background="#FFFFFF"
-            android:textColor="#000000"
-            android:hint="End Date"
-            android:inputType="none"
-            android:focusable="false"
-            android:clickable="true"
-            android:drawableEnd="@android:drawable/ic_menu_my_calendar"
-            android:padding="10dp"
-            android:autofillHints="endDate"
-            android:accessibilityLiveRegion="polite"
-            tools:ignore="TouchTargetSizeCheck" />
-    </LinearLayout>
-
-    <!-- Buttons -->
-    <LinearLayout
-        android:id="@+id/buttonContainer"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/dateRangeContainer">
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnRefreshGraph"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Apply Filter" />
+            android:orientation="vertical"
+            android:padding="20dp">
 
-        <Space
-            android:layout_width="16dp"
-            android:layout_height="wrap_content"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date Range Filter"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="16dp" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnClearFilter"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="Clear Filter" />
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
 
-    <!-- Bar Chart -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:cardBackgroundColor="#2A2A2A"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="4dp">
+
+                    <EditText
+                        android:id="@+id/startDateEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:background="@android:color/transparent"
+                        android:textColor="#FFFFFF"
+                        android:textColorHint="#808080"
+                        android:hint="Start Date"
+                        android:inputType="none"
+                        android:focusable="false"
+                        android:clickable="true"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:paddingTop="16dp"
+                        android:paddingBottom="16dp"
+                        android:textSize="16sp"
+                        android:autofillHints="startDate"
+                        android:accessibilityLiveRegion="polite" />
+                </androidx.cardview.widget.CardView>
+
+                <Space
+                    android:layout_width="12dp"
+                    android:layout_height="wrap_content"/>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:cardBackgroundColor="#2A2A2A"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="4dp">
+
+                    <EditText
+                        android:id="@+id/endDateEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:background="@android:color/transparent"
+                        android:textColor="#FFFFFF"
+                        android:textColorHint="#808080"
+                        android:hint="End Date"
+                        android:inputType="none"
+                        android:focusable="false"
+                        android:clickable="true"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:paddingTop="16dp"
+                        android:paddingBottom="16dp"
+                        android:textSize="16sp"
+                        android:autofillHints="endDate"
+                        android:accessibilityLiveRegion="polite" />
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+            <!-- Action Buttons -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="20dp">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:cardBackgroundColor="#4CAF50"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="6dp">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btnRefreshGraph"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:background="@android:color/transparent"
+                        android:text="Apply Filter"
+                        android:textColor="#FFFFFF"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:letterSpacing="0.02" />
+                </androidx.cardview.widget.CardView>
+
+                <Space
+                    android:layout_width="12dp"
+                    android:layout_height="wrap_content"/>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:cardBackgroundColor="#FF5722"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="6dp">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btnClearFilter"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:background="@android:color/transparent"
+                        android:text="Clear Filter"
+                        android:textColor="#FFFFFF"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:letterSpacing="0.02" />
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Chart Section -->
     <androidx.cardview.widget.CardView
+        android:id="@+id/chartCard"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_margin="16dp"
-        app:cardBackgroundColor="#FFFFFF"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="4dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="16dp"
+        app:cardBackgroundColor="#1E1E1E"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="12dp"
         app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/buttonContainer">
+        app:layout_constraintTop_toBottomOf="@id/dateRangeCard">
 
-        <com.github.mikephil.charting.charts.BarChart
-            android:id="@+id/barChart"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="8dp" />
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Spending Overview"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="12dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#4CAF50"
+                android:layout_marginBottom="16dp"
+                android:alpha="0.6" />
+
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/barChart"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@android:color/transparent" />
+        </LinearLayout>
     </androidx.cardview.widget.CardView>
 
     <!-- Bottom Navigation View -->
@@ -153,13 +260,17 @@
         android:id="@+id/bottomNavigationView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:background="@color/black"
-        app:itemIconTint="@color/green"
-        app:itemTextColor="@color/green"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="#1E1E1E"
+        android:elevation="8dp"
+        app:itemIconTint="#4CAF50"
+        app:itemTextColor="#4CAF50"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_nav" />
+        app:menu="@menu/bottom_nav"
+        app:labelVisibilityMode="selected" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

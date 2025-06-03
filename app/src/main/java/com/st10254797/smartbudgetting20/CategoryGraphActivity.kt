@@ -122,7 +122,7 @@ class CategoryGraphActivity : AppCompatActivity() {
 
             // Legend settings
             legend.isEnabled = true
-            legend.textColor = Color.BLACK
+            legend.textColor = Color.WHITE
 
             // Chart padding
             setExtraOffsets(10f, 0f, 0f, 40f)  // Left, Top, Right, Bottom padding
@@ -132,11 +132,11 @@ class CategoryGraphActivity : AppCompatActivity() {
                 position = XAxis.XAxisPosition.BOTTOM  // Fixed typo from "BOITION"
                 granularity = 1f
                 setDrawGridLines(false)
-                textColor = Color.BLACK
+                textColor = Color.WHITE
                 setAvoidFirstLastClipping(true)
                 labelRotationAngle = -45f
                 setDrawAxisLine(true)  // Make X-axis line visible
-                axisLineColor = Color.BLACK
+                axisLineColor = Color.WHITE
                 axisLineWidth = 1f
             }
 
@@ -144,13 +144,13 @@ class CategoryGraphActivity : AppCompatActivity() {
             axisLeft.apply {
                 isEnabled = true
                 axisMinimum = 0f
-                textColor = Color.BLACK
+                textColor = Color.WHITE
                 setDrawZeroLine(false)
                 setDrawAxisLine(true)
-                axisLineColor = Color.BLACK  // Changed from RED to BLACK for production
+                axisLineColor = Color.WHITE  // Changed from RED to WHITE for production
                 axisLineWidth = 2f  // Slightly thicker than X-axis
                 setDrawGridLines(true)  // Enable horizontal grid lines
-                gridColor = Color.LTGRAY  // Light gray grid lines
+                gridColor = Color.WHITE  // Light gray grid lines
                 gridLineWidth = 0.5f
             }
 
@@ -335,7 +335,7 @@ class CategoryGraphActivity : AppCompatActivity() {
                 val barDataSet = BarDataSet(entries, "Expenses by Category").apply {
                     color = ContextCompat.getColor(this@CategoryGraphActivity, R.color.teal_700)
                     valueTextSize = 12f
-                    valueTextColor = Color.BLACK
+                    valueTextColor = Color.WHITE
                     valueFormatter = object : ValueFormatter() {
                         override fun getFormattedValue(value: Float): String {
                             return "R${value.toInt()}"
@@ -360,7 +360,7 @@ class CategoryGraphActivity : AppCompatActivity() {
                     this.data = data
                     xAxis.valueFormatter = IndexAxisValueFormatter(labels)
                     xAxis.labelCount = labels.size
-                    xAxis.textColor = Color.BLACK
+                    xAxis.textColor = Color.WHITE
                     xAxis.position = XAxis.XAxisPosition.BOTTOM
                     xAxis.setDrawGridLines(false)
                     xAxis.labelRotationAngle = -30f
@@ -368,7 +368,7 @@ class CategoryGraphActivity : AppCompatActivity() {
                     // Configure left axis (primary axis)
                     axisLeft.apply {
                         isEnabled = true
-                        textColor = Color.BLACK
+                        textColor = Color.WHITE
                         axisLineColor = Color.WHITE
                         gridColor = Color.GRAY
 
