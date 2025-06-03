@@ -190,7 +190,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="• Add and manage categories on the Categories page&#10;• Record expenses on the Expenses page&#10;• Set and track goals on the Goals page&#10;• See monthly spending by category in a pie chart&#10;• View monthly expense trends with a bar graph"
-                        android:textSize="14sp"
+                        android:textSize="16sp"
                         android:lineSpacingExtra="8dp"
                         android:textColor="@color/green"
                         android:alpha="0.8"/>
@@ -220,7 +220,7 @@
                     android:text="🏆 View Achievements"
                     android:textAllCaps="false"
                     android:textColor="@color/black"
-                    android:textSize="15sp"
+                    android:textSize="18sp"
                     app:cornerRadius="22dp"
                     app:icon="@drawable/ic_badge_unlocked"
                     app:iconGravity="textStart"

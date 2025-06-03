@@ -5,7 +5,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#121212">
+    android:background="@android:color/black">
+
+    <!-- Header with gradient effect -->
+    <View
+        android:id="@+id/headerGradient"
+        android:layout_width="0dp"
+        android:layout_height="120dp"
+        android:background="#1A4CAF50"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <!-- ScrollView holding your existing UI -->
     <ScrollView
@@ -13,6 +23,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:fillViewport="true"
+        android:scrollbars="none"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,17 +33,43 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="24dp">
+            android:padding="20dp"
+            android:paddingTop="40dp">
 
-            <!-- Current Goals Card -->
+            <!-- Welcome Header -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="32dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Financial Goals"
+                    android:textColor="#FFFFFF"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.02" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Manage your monthly spending targets"
+                    android:textColor="#B0B0B0"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <!-- Current Goals Card with enhanced design -->
             <androidx.cardview.widget.CardView
                 android:id="@+id/goalCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                app:cardBackgroundColor="#1E1E1E"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="4dp">
+                android:layout_marginBottom="28dp"
+                app:cardBackgroundColor="#1F1F1F"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="8dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -40,33 +77,53 @@
                     android:orientation="vertical"
                     android:padding="24dp">
 
-                    <TextView
-                        android:id="@+id/textViewGoalHeader"
-                        android:layout_width="wrap_content"
+                    <!-- Header with icon effect -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Current Spending Goals"
-                        android:textColor="#4CAF50"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="16dp">
+
+                        <View
+                            android:layout_width="6dp"
+                            android:layout_height="24dp"
+                            android:background="#4CAF50"
+                            android:layout_marginEnd="12dp" />
+
+                        <TextView
+                            android:id="@+id/textViewGoalHeader"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Current Spending Goals"
+                            android:textColor="#4CAF50"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/textViewGoalValues"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:text="Min: R0.00 | Max: R0.00"
                         android:textColor="#FFFFFF"
-                        android:textSize="16sp" />
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:background="#282828"
+                        android:padding="16dp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- Set Goals Card -->
+            <!-- Set Goals Card with improved spacing -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardBackgroundColor="#1E1E1E"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="4dp">
+                android:layout_marginBottom="24dp"
+                app:cardBackgroundColor="#1F1F1F"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="8dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -74,112 +131,294 @@
                     android:orientation="vertical"
                     android:padding="24dp">
 
-                    <TextView
+                    <!-- Section Header -->
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="Set Monthly Spending Goals"
-                        android:textColor="#FFFFFF"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:layout_marginBottom="16dp" />
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="24dp">
 
-                    <!-- Min Goal Input -->
+                        <View
+                            android:layout_width="6dp"
+                            android:layout_height="24dp"
+                            android:background="#FF9800"
+                            android:layout_marginEnd="12dp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Update Your Goals"
+                            android:textColor="#FFFFFF"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- Min Goal Input with enhanced styling -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Minimum Monthly Spending"
+                        android:textColor="#B0B0B0"
+                        android:textSize="14sp"
+                        android:layout_marginBottom="8dp" />
+
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/minGoalLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:boxBackgroundColor="#333333"
-                        app:boxCornerRadiusBottomEnd="8dp"
-                        app:boxCornerRadiusBottomStart="8dp"
-                        app:boxCornerRadiusTopEnd="8dp"
-                        app:boxCornerRadiusTopStart="8dp"
+                        android:layout_marginBottom="20dp"
+                        app:boxBackgroundColor="#2A2A2A"
+                        app:boxCornerRadiusBottomEnd="12dp"
+                        app:boxCornerRadiusBottomStart="12dp"
+                        app:boxCornerRadiusTopEnd="12dp"
+                        app:boxCornerRadiusTopStart="12dp"
                         app:boxStrokeWidth="0dp"
-                        app:boxStrokeWidthFocused="0dp"
-                        app:hintTextColor="#FFFFFF"
-                        app:hintTextAppearance="@style/LargeHintText">
+                        app:boxStrokeWidthFocused="2dp"
+                        app:boxStrokeColor="#4CAF50"
+                        app:hintTextColor="#B0B0B0"
+                        app:prefixText="R"
+                        app:prefixTextColor="#4CAF50">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/editTextMinGoal"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Enter minimum goal (e.g. 500)"
+                            android:hint="500.00"
                             android:inputType="numberDecimal"
                             android:textColor="#FFFFFF"
-                            android:textColorHint="#FFFFFF"
-                            android:textSize="18sp"
-                            tools:ignore="TouchTargetSizeCheck" />
+                            android:textColorHint="#707070"
+                            android:textSize="16sp"
+                            android:paddingTop="16dp"
+                            android:paddingBottom="16dp" />
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <!-- Max Goal Input -->
+                    <!-- Max Goal Input with enhanced styling -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Maximum Monthly Spending"
+                        android:textColor="#B0B0B0"
+                        android:textSize="14sp"
+                        android:layout_marginBottom="8dp" />
+
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/maxGoalLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        app:boxBackgroundColor="#333333"
-                        app:boxCornerRadiusBottomEnd="8dp"
-                        app:boxCornerRadiusBottomStart="8dp"
-                        app:boxCornerRadiusTopEnd="8dp"
-                        app:boxCornerRadiusTopStart="8dp"
+                        android:layout_marginBottom="28dp"
+                        app:boxBackgroundColor="#2A2A2A"
+                        app:boxCornerRadiusBottomEnd="12dp"
+                        app:boxCornerRadiusBottomStart="12dp"
+                        app:boxCornerRadiusTopEnd="12dp"
+                        app:boxCornerRadiusTopStart="12dp"
                         app:boxStrokeWidth="0dp"
-                        app:boxStrokeWidthFocused="0dp"
-                        app:hintTextColor="#FFFFFF"
-                        app:hintTextAppearance="@style/LargeHintText">
+                        app:boxStrokeWidthFocused="2dp"
+                        app:boxStrokeColor="#4CAF50"
+                        app:hintTextColor="#B0B0B0"
+                        app:prefixText="R"
+                        app:prefixTextColor="#4CAF50">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/editTextMaxGoal"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Enter maximum goal (e.g. 2000)"
+                            android:hint="2000.00"
                             android:inputType="numberDecimal"
                             android:textColor="#FFFFFF"
-                            android:textColorHint="#FFFFFF"
-                            android:textSize="18sp"
-                            tools:ignore="TouchTargetSizeCheck" />
+                            android:textColorHint="#707070"
+                            android:textSize="16sp"
+                            android:paddingTop="16dp"
+                            android:paddingBottom="16dp" />
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <!-- Save Button -->
-                    <Button
+                    <!-- Save Button with enhanced design -->
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/buttonSaveGoals"
                         android:layout_width="match_parent"
                         android:layout_height="56dp"
-                        android:layout_marginTop="24dp"
                         android:backgroundTint="#4CAF50"
-                        android:elevation="4dp"
                         android:text="Save Goals"
                         android:textColor="#FFFFFF"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:letterSpacing="0.05"
+                        app:cornerRadius="16dp"
+                        app:elevation="4dp"
+                        app:rippleColor="#66FFFFFF" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- Balancing Tool Button -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/buttonBalanceOverview"
+            <!-- Enhanced Balancing Tool Card -->
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="24dp"
-                android:backgroundTint="#4CAF50"
-                android:fontFamily="sans-serif-medium"
-                android:text="Balancing Tool"
-                android:textColor="#FFFFFF"
-                android:textSize="16sp"
-                app:cornerRadius="12dp"
-                app:icon="@android:drawable/ic_menu_manage"
-                app:iconGravity="textStart"
-                app:iconPadding="8dp"
-                app:iconTint="#FFFFFF"/>
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="#1F1F1F"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="8dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="24dp">
+
+                    <!-- Tool Header -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="16dp">
+
+                        <View
+                            android:layout_width="6dp"
+                            android:layout_height="24dp"
+                            android:background="#FF5722"
+                            android:layout_marginEnd="12dp" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Budget Balancing"
+                                android:textColor="#FFFFFF"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:text="Smart financial optimization tool"
+                                android:textColor="#B0B0B0"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+
+                        <!-- Status indicator -->
+                        <View
+                            android:layout_width="12dp"
+                            android:layout_height="12dp"
+                            android:background="#4CAF50"
+                            android:layout_marginStart="8dp" />
+                    </LinearLayout>
+
+                    <!-- Feature highlights -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="20dp"
+                        android:background="#262626"
+                        android:padding="16dp">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:gravity="center">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="📊"
+                                android:textSize="20sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:text="Analytics"
+                                android:textColor="#B0B0B0"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:gravity="center">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="⚖️"
+                                android:textSize="20sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:text="Balance"
+                                android:textColor="#B0B0B0"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:gravity="center">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="🎯"
+                                android:textSize="20sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:text="Optimize"
+                                android:textColor="#B0B0B0"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <!-- Enhanced Launch Button -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/buttonBalanceOverview"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:backgroundTint="#4CAF50"
+                        android:text="Launch Balancing Tool"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:letterSpacing="0.05"
+                        app:cornerRadius="16dp"
+                        app:elevation="4dp"
+                        app:rippleColor="#66FFFFFF" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Bottom spacing for better scrolling -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
         </LinearLayout>
     </ScrollView>
 
-    <!-- Bottom Navigation Bar -->
+    <!-- Enhanced Bottom Navigation Bar -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:background="@color/black"
+        android:elevation="8dp"
         app:itemIconTint="@color/green"
         app:itemTextColor="@color/green"
         app:menu="@menu/bottom_nav"
