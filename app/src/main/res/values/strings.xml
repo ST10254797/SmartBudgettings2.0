@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">SmartBudgetting2.0</string>
+    <string name="badge_icon">Badge icon</string>
+
 </resources>

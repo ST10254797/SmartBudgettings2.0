@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity() {
 
         firebaseAuth = FirebaseAuth.getInstance()
 
+
         // Redirect to SignInActivity if not signed in
         if (firebaseAuth.currentUser == null) {
             startActivity(Intent(this, SignInActivity::class.java))
@@ -31,6 +32,10 @@ class MainActivity : AppCompatActivity() {
             val email = firebaseAuth.currentUser?.email
             val name = email?.substringBefore("@")
             binding.textViewWelcome.text = "Welcome, $name"
+
+            // **Unlock the Getting Started badge here**
+            val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return
+            unlockBadge(this, userId, "getting_started")
         }
 
         // Logout button functionality
@@ -62,6 +67,11 @@ class MainActivity : AppCompatActivity() {
 //            val intent = Intent(this, BalanceOverviewActivity::class.java)
 //            startActivity(intent)
 //        }
+
+        binding.buttonViewBadges.setOnClickListener {
+            val intent = Intent(this, BadgesActivity::class.java)
+            startActivity(intent)
+        }
 
         binding.bottomNavigationView.selectedItemId = R.id.Back_Home
         binding.bottomNavigationView.setOnItemSelectedListener {

@@ -38,6 +38,8 @@ import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.utils.ViewPortHandler
 import androidx.core.content.ContextCompat
 import android.content.res.ColorStateList
+import android.content.Context
+
 
 
 class BalanceOverviewActivity : AppCompatActivity() {
@@ -210,6 +212,10 @@ class BalanceOverviewActivity : AppCompatActivity() {
                     updateProgressBar(thisMonthExpenses.sumOf { it.amount }, goal)
                     updateSummary(thisMonthExpenses.sumOf { it.amount }, goal)
                     updateBudgetStatus(thisMonthExpenses.sumOf { it.amount }, goal)
+
+                    // Unlock the summary viewer badge here
+                    unlockBadge(this@BalanceOverviewActivity, userId, "summary_viewer")
+
                 }
             } catch (e: Exception) {
                 Log.e("LOAD_ERROR", "Error loading data", e)
@@ -223,6 +229,17 @@ class BalanceOverviewActivity : AppCompatActivity() {
             }
         }
     }
+
+    private fun isBadgeUnlocked(badgeId: String): Boolean {
+        val prefs = getSharedPreferences("badges_prefs", Context.MODE_PRIVATE)
+        return prefs.getBoolean(badgeId, false)
+    }
+
+    private fun markBadgeUnlocked(badgeId: String) {
+        val prefs = getSharedPreferences("badges_prefs", Context.MODE_PRIVATE)
+        prefs.edit().putBoolean(badgeId, true).apply()
+    }
+
 
     private fun updatePieChart(dataMap: Map<String, Double>) {
         val filteredData = dataMap.filterValues { it > 0 }

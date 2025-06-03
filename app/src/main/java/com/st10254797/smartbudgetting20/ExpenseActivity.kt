@@ -329,6 +329,7 @@ class ExpenseActivity : AppCompatActivity() {
 
                 withContext(Dispatchers.Main) {
                     Toast.makeText(this@ExpenseActivity, "Expense added successfully", Toast.LENGTH_SHORT).show()
+                    unlockBadge(this@ExpenseActivity,userId, "expense_saver")  // Your badge ID here
                     loadExpensesForCategory(categoryId)
                     clearInputFields()
                 }

@@ -16,6 +16,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
+import com.st10254797.smartbudgetting20.unlockBadge
+
 
 @Suppress("DEPRECATION")
 class CategoryActivity : AppCompatActivity() {
@@ -99,6 +101,7 @@ class CategoryActivity : AppCompatActivity() {
                         .await()
 
                     withContext(Dispatchers.Main) {
+                        unlockBadge(this@CategoryActivity, userId, "category_creator")
                         showToast("$categoryName added")
                         binding.editTextCategoryName.text?.clear()
                         updateCategoryList()

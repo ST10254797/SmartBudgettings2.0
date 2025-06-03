@@ -119,6 +119,10 @@ class GoalSettingsActivity : AppCompatActivity() {
                 .addOnSuccessListener {
                     Toast.makeText(this, "Goals saved successfully!", Toast.LENGTH_SHORT).show()
                     goalTextView.text = "Min: R$minGoal | Max: R$maxGoal"
+
+                    // Unlock the badge here
+                    unlockBadge(this, userId, "goal_setter")
+
                     finish()
                 }
                 .addOnFailureListener {
