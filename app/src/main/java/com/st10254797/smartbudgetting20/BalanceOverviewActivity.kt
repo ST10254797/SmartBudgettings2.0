@@ -323,7 +323,7 @@ class BalanceOverviewActivity : AppCompatActivity() {
 
             setCenterText("Spending\nBreakdown")
             setCenterTextSize(16f)
-            setCenterTextColor(Color.DKGRAY)
+            setCenterTextColor(Color.WHITE)
             setCenterTextTypeface(Typeface.DEFAULT_BOLD)
 
             rotationAngle = 0f
@@ -333,18 +333,21 @@ class BalanceOverviewActivity : AppCompatActivity() {
 
             legend.apply {
                 isEnabled = true
-                textSize = 12f
-                textColor = Color.DKGRAY
+                textSize = 14f
+                textColor = Color.WHITE
                 form = Legend.LegendForm.CIRCLE
                 formSize = 12f
                 formToTextSpace = 8f
+                xEntrySpace = 20f        // Horizontal space between legend items
+                yEntrySpace = 12f        // Vertical space between lines when wrapped
                 verticalAlignment = Legend.LegendVerticalAlignment.BOTTOM
                 horizontalAlignment = Legend.LegendHorizontalAlignment.CENTER
                 orientation = Legend.LegendOrientation.HORIZONTAL
                 isWordWrapEnabled = true
-                yOffset = 16f
+                yOffset = 20f            // Distance from chart to legend
                 xOffset = 0f
             }
+
 
             animateY(1000, Easing.EaseInOutQuad)
             highlightValues(null)
