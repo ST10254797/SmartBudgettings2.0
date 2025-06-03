@@ -6,19 +6,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#121212"
-    android:padding="16dp"
+    android:background="#0F0F0F"
+    android:paddingHorizontal="16dp"
+    android:paddingTop="16dp"
+    android:paddingBottom="8dp"
     tools:context=".CategoryActivity">
 
-    <!-- Header Card -->
+    <!-- Header Section -->
     <androidx.cardview.widget.CardView
         android:id="@+id/headerCard"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        app:cardBackgroundColor="#1E1E1E"
-        app:cardCornerRadius="16dp"
-        app:cardElevation="4dp"
+        app:cardBackgroundColor="#1F1F1F"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -26,159 +28,229 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="16dp"
-            android:gravity="center_vertical">
+            android:orientation="vertical"
+            android:padding="16dp">
 
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Categories"
-                android:textColor="#FFFFFF"
+                android:text="Manage Categories"
+                android:textColor="#4CAF50"
                 android:textSize="24sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center"
+                android:layout_marginBottom="4dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Organize your items with custom categories"
+                android:textColor="#B0B0B0"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:layout_marginBottom="12dp"/>
 
             <Button
                 android:id="@+id/buttonRefresh"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Refresh"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
                 android:backgroundTint="#4CAF50"
+                android:elevation="6dp"
+                android:paddingHorizontal="24dp"
+                android:stateListAnimator="@null"
+                android:text="Refresh Categories"
                 android:textColor="#FFFFFF"
-                android:elevation="4dp"
-                android:layout_marginStart="8dp"/>
+                android:textSize="12sp"
+                android:textStyle="bold" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
-    <!-- Categories Display Card -->
+    <!-- Categories Display Section -->
     <androidx.cardview.widget.CardView
+        android:id="@+id/categoriesCard"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
-        app:cardBackgroundColor="#1E1E1E"
-        app:cardCornerRadius="16dp"
-        app:cardElevation="4dp"
-        app:layout_constraintBottom_toTopOf="@+id/inputCard"
+        android:layout_marginBottom="12dp"
+        app:cardBackgroundColor="#1F1F1F"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/inputSection"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/headerCard">
 
-        <ScrollView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:orientation="vertical"
             android:padding="16dp">
 
             <TextView
-                android:id="@+id/textViewCategories"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Categories will appear here"
+                android:text="Your Categories"
+                android:textColor="#4CAF50"
                 android:textSize="16sp"
-                android:textColor="#FFFFFF"
-                android:lineSpacingExtra="8dp"/>
-        </ScrollView>
-    </androidx.cardview.widget.CardView>
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-medium"
+                android:layout_marginBottom="12dp"/>
 
-    <!-- Input Card -->
-    <androidx.cardview.widget.CardView
-        android:id="@+id/inputCard"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:cardBackgroundColor="#1E1E1E"
-        app:cardCornerRadius="16dp"
-        app:cardElevation="4dp"
-        app:layout_constraintBottom_toTopOf="@+id/actionButtonsCard"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="16dp">
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/categoryInputLayout"
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:boxBackgroundColor="#333333"
-                app:boxCornerRadiusBottomEnd="8dp"
-                app:boxCornerRadiusBottomStart="8dp"
-                app:boxCornerRadiusTopEnd="8dp"
-                app:boxCornerRadiusTopStart="8dp"
-                app:boxStrokeWidth="0dp"
-                app:boxStrokeWidthFocused="0dp"
-                app:layout_constraintTop_toTopOf="parent">
+                android:layout_height="1dp"
+                android:background="#333333"
+                android:layout_marginBottom="12dp"/>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editTextCategoryName"
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="none"
+                android:overScrollMode="never">
+
+                <TextView
+                    android:id="@+id/textViewCategories"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Enter category name"
+                    android:text="No categories yet. Add your first category below!"
+                    android:textSize="16sp"
                     android:textColor="#FFFFFF"
-                    android:textColorHint="#AAAAAA"
-                    android:padding="16dp"/>
-            </com.google.android.material.textfield.TextInputLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:lineSpacingExtra="4dp"
+                    android:fontFamily="sans-serif-light"
+                    android:gravity="start"
+                    android:layout_marginTop="16dp"/>
+            </ScrollView>
+        </LinearLayout>
     </androidx.cardview.widget.CardView>
 
-    <!-- Action Buttons Card -->
-    <androidx.cardview.widget.CardView
-        android:id="@+id/actionButtonsCard"
+    <!-- Input Section -->
+    <LinearLayout
+        android:id="@+id/inputSection"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        app:cardBackgroundColor="#1E1E1E"
-        app:cardCornerRadius="16dp"
-        app:cardElevation="4dp"
+        android:orientation="vertical"
+        android:layout_marginBottom="12dp"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <LinearLayout
+        <!-- Input Card -->
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="16dp">
+            android:layout_marginBottom="12dp"
+            app:cardBackgroundColor="#1F1F1F"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="8dp">
 
-            <Button
-                android:id="@+id/buttonAddCategory"
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Add"
-                android:backgroundTint="#4CAF50"
-                android:textColor="#FFFFFF"
-                android:elevation="4dp"
-                android:layout_marginEnd="8dp"/>
+                android:orientation="vertical"
+                android:padding="16dp">
 
-            <Button
-                android:id="@+id/buttonDeleteCategory"
-                android:layout_width="0dp"
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Add New Category"
+                    android:textColor="#4CAF50"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif-medium"
+                    android:layout_marginBottom="8dp"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/categoryInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:boxBackgroundColor="#2A2A2A"
+                    app:boxBackgroundMode="filled"
+                    app:boxCornerRadiusBottomEnd="12dp"
+                    app:boxCornerRadiusBottomStart="12dp"
+                    app:boxCornerRadiusTopEnd="12dp"
+                    app:boxCornerRadiusTopStart="12dp"
+                    app:boxStrokeWidth="0dp"
+                    app:boxStrokeWidthFocused="2dp"
+                    app:boxStrokeColor="#4CAF50"
+                    app:hintTextColor="#4CAF50">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editTextCategoryName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Enter category name"
+                        android:textColor="#FFFFFF"
+                        android:textColorHint="#888888"
+                        android:textSize="14sp"
+                        android:fontFamily="sans-serif"
+                        android:padding="16dp"
+                        android:inputType="textCapWords"
+                        android:maxLines="1"
+                        android:imeOptions="actionDone"/>
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Action Buttons Card -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="#1F1F1F"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Delete"
-                android:backgroundTint="#FF5252"
-                android:textColor="#FFFFFF"
-                android:elevation="4dp"
-                android:layout_marginStart="8dp"/>
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/buttonAddCategory"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    android:text="Add Category"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:backgroundTint="#4CAF50"
+                    android:elevation="6dp"
+                    android:stateListAnimator="@null"/>
+
+                <Button
+                    android:id="@+id/buttonDeleteCategory"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    android:text="Delete Category"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:backgroundTint="#FF5252"
+                    android:elevation="6dp"
+                    android:stateListAnimator="@null"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
 
     <!-- Bottom Navigation -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
         android:background="@color/black"
         app:itemIconTint="@color/green"
         app:itemTextColor="@color/green"
+        app:menu="@menu/bottom_nav"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_nav"/>
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
