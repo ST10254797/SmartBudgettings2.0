@@ -63,6 +63,7 @@ class MainActivity : AppCompatActivity() {
 //            startActivity(intent)
 //        }
 
+        binding.bottomNavigationView.selectedItemId = R.id.Back_Home
         binding.bottomNavigationView.setOnItemSelectedListener {
 
             when(it.itemId){

@@ -39,6 +39,7 @@ class CategoryActivity : AppCompatActivity() {
             updateCategoryList()
             Toast.makeText(this, "Refreshing...", Toast.LENGTH_SHORT).show()
         }
+        binding.bottomNavigationView.selectedItemId = R.id.categories
         binding.bottomNavigationView.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.Add_Expense -> startActivity(Intent(this, ExpenseActivity::class.java))

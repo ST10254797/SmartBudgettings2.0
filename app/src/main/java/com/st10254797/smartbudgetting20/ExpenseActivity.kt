@@ -83,6 +83,7 @@ class ExpenseActivity : AppCompatActivity() {
 
         // Bottom Navigation setup
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        bottomNav.selectedItemId = R.id.Add_Expense
         bottomNav.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.Add_Expense -> {
