@@ -76,6 +76,7 @@ class CategoryGraphActivity : AppCompatActivity() {
         }
 
         // Setup bottom navigation item selected listener
+        bottomNavigationView.selectedItemId = R.id.graph
         bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.Add_Expense -> {
