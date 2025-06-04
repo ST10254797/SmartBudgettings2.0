@@ -7,5 +7,24 @@
         <item name="android:textColor">#FFFFFF</item>
     </style>
 
+    <style name="SpinnerTheme" parent="Widget.AppCompat.Spinner">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:background">@drawable/spinner_background</item>
+        <item name="android:popupTheme">@style/SpinnerPopupTheme</item>
+        <item name="android:dropDownSelector">@drawable/spinner_selector</item> <!-- This now exists -->
+    </style>
+
+    <style name="SpinnerPopupTheme" parent="ThemeOverlay.AppCompat.Dark">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:background">#262626</item>
+        <item name="android:dropDownListViewStyle">@style/SpinnerDropdownStyle</item>
+    </style>
+
+    <style name="SpinnerDropdownStyle" parent="Widget.AppCompat.ListView.DropDown">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:divider">#757575</item>
+        <item name="android:dividerHeight">1dp</item>
+        <item name="android:listSelector">@drawable/spinner_selector</item> <!-- Added this -->
+    </style>
     <!-- Other existing styles -->
 </resources>

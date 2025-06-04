@@ -45,7 +45,7 @@
         android:orientation="vertical"
         android:padding="12dp">
 
-        <!-- Budget Warning Card -->
+        <!-- Budget Warning Card - Moved to top -->
         <androidx.cardview.widget.CardView
             android:id="@+id/budgetWarningCard"
             android:layout_width="match_parent"
@@ -119,13 +119,14 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:layout_marginEnd="4dp"
-                        app:boxBackgroundColor="#FFFFFF"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        app:boxBackgroundColor="#262626"
+                        app:boxStrokeColor="#757575"
                         app:boxStrokeWidth="1dp"
-                        app:boxStrokeWidthFocused="2dp"
-                        app:boxStrokeColor="#000000"
-                        app:hintTextColor="#707070"
+                        app:boxStrokeWidthFocused="1dp"
+                        app:hintTextColor="#B0B0B0"
                         app:prefixText="R"
-                        app:prefixTextColor="#000000"
+                        app:prefixTextColor="#B0B0B0"
                         android:hint="Amount">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -133,8 +134,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="numberDecimal"
-                            android:textColor="#000000"
-                            android:textColorHint="#707070"
+                            android:textColor="#FFFFFF"
+                            android:textColorHint="#B0B0B0"
                             android:textSize="14sp"
                             android:autofillHints="amount" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -144,19 +145,20 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:layout_marginStart="4dp"
-                        app:boxBackgroundColor="#FFFFFF"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        app:boxBackgroundColor="#262626"
+                        app:boxStrokeColor="#757575"
                         app:boxStrokeWidth="1dp"
-                        app:boxStrokeWidthFocused="2dp"
-                        app:boxStrokeColor="#000000"
-                        app:hintTextColor="#707070"
+                        app:boxStrokeWidthFocused="1dp"
+                        app:hintTextColor="#B0B0B0"
                         android:hint="Description">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/descriptionEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textColor="#000000"
-                            android:textColorHint="#707070"
+                            android:textColor="#FFFFFF"
+                            android:textColorHint="#B0B0B0"
                             android:textSize="14sp"
                             android:autofillHints="description" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -174,14 +176,15 @@
                         android:layout_height="56dp"
                         android:layout_weight="1"
                         android:layout_marginEnd="4dp"
-                        app:boxBackgroundColor="#FFFFFF"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        app:boxBackgroundColor="#262626"
+                        app:boxStrokeColor="#757575"
                         app:boxStrokeWidth="1dp"
-                        app:boxStrokeWidthFocused="2dp"
-                        app:boxStrokeColor="#000000"
-                        app:hintTextColor="#707070"
+                        app:boxStrokeWidthFocused="1dp"
+                        app:hintTextColor="#B0B0B0"
                         app:endIconMode="custom"
                         app:endIconDrawable="@android:drawable/ic_menu_my_calendar"
-                        app:endIconTint="#000000"
+                        app:endIconTint="#B0B0B0"
                         android:hint="Date">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -191,8 +194,8 @@
                             android:paddingTop="0dp"
                             android:paddingBottom="0dp"
                             android:gravity="center_vertical"
-                            android:textColor="#000000"
-                            android:textColorHint="#707070"
+                            android:textColor="#FFFFFF"
+                            android:textColorHint="#B0B0B0"
                             android:textSize="14sp"
                             android:autofillHints="expenseDate"
                             android:focusable="false"
@@ -210,14 +213,14 @@
 
                         <Spinner
                             android:id="@+id/categorySpinner"
+                            style="@style/SpinnerTheme"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="#FFFFFF"
-                            android:gravity="center_vertical"
+                            android:layout_height="56dp"
+                            android:textColor="#FFFFFF"
+                            android:spinnerMode="dropdown"
+                            android:gravity="center_vertical|start"
                             android:paddingStart="16dp"
-                            android:paddingTop="0dp"
-                            android:paddingEnd="16dp"
-                            android:paddingBottom="0dp" />
+                            android:paddingEnd="16dp"/>
                     </LinearLayout>
                 </LinearLayout>
 

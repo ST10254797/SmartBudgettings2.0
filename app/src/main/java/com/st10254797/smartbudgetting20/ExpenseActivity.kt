@@ -149,10 +149,12 @@ class ExpenseActivity : AppCompatActivity() {
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                     categorySpinner.adapter = adapter
 
+                    (categorySpinner.selectedView as? TextView)?.setTextColor(Color.WHITE)
                     categorySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                         override fun onItemSelected(
                             parent: AdapterView<*>, view: View?, position: Int, id: Long
                         ) {
+                            (view as? TextView)?.setTextColor(Color.WHITE)
                             selectedCategoryId = categories[position].id
                             loadExpensesForCategory(selectedCategoryId!!)
                         }
@@ -455,7 +457,7 @@ class ExpenseActivity : AppCompatActivity() {
 
             val textView = TextView(this)
             textView.text = "$categoryName: R%.2f".format(total)
-            textView.setTextColor(Color.BLACK)
+            textView.setTextColor(Color.WHITE)
             textView.textSize = 16f
             categoryTotalsLayout.addView(textView)
         }
