@@ -61,19 +61,16 @@ Perfect for students managing their allowances, professionals optimizing their s
 
 ## 🎥 App Showcase
 
-### Expense Tracking Interface
-![Expense Tracker](screenshots/expense_tracker.png)
+### 📒 Expense Tracking Interface
 Quick expense entry with budget monitoring and recent expenses view
 
-### Category Management
-![Category Management](screenshots/category_management.png)
+### 🗂️ Category Management
 Organize expenses with custom categories and real-time totals
 
-### Analytics Dashboard
-![Balance Overview](screenshots/balance_overview.png)
+### 📊 Analytics Dashboard
 Visual spending breakdown with interactive pie charts and budget usage
 
-> 🎬 [Watch Full Demo Video](https://youtu.be/7H_umG7AAS0) - See all features in action!
+> 🎬 [Watch Full Demo Video](https://youtu.be/7H_umG7AAS0) – See all features in action!
 
 ---
 
