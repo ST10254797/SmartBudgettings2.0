@@ -142,48 +142,37 @@ Visual spending breakdown with interactive pie charts and budget usage
 ```mermaid
 erDiagram
     User ||--o{ Category : creates
-    User ||--o{ Budget : sets
+    User ||--o{ Goal : sets
     Category ||--o{ Expense : contains
-    Category ||--o{ Budget : applies_to
-    Expense ||--o| Receipt : has
-    Budget ||--o{ BudgetAlert : triggers
     
-    User {
+      User {
         string id PK
         string email
         string displayName
         datetime createdAt
         boolean emailVerified
     }
-    
+
     Category {
         string id PK
         string userId FK
         string name
-        string color
-        string icon
-        datetime createdAt
     }
-    
+
     Expense {
         string id PK
         string userId FK
         string categoryId FK
-        decimal amount
+        double amount
         string description
-        datetime expenseDate
-        string receiptPath
-        boolean isRecurring
+        datetime date
+        string imageUrl
     }
-    
-    Budget {
-        string id PK
-        string userId FK
-        string categoryId FK
-        decimal budgetAmount
-        string period
-        datetime startDate
-        datetime endDate
+
+    Goal {
+        string userId PK
+        float minGoal
+        float maxGoal
     }
 ```
 
