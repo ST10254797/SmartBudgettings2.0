@@ -195,39 +195,56 @@ erDiagram
 ```
 smart-budgeting-2.0/
 ├── 📱 app/
-│   ├── src/main/java/com/smartbudget/
-│   │   ├── 🎨 ui/
-│   │   │   ├── auth/              # Authentication screens
-│   │   │   ├── dashboard/         # Main dashboard
-│   │   │   ├── expenses/          # Expense management
-│   │   │   ├── budgets/           # Budget planning
-│   │   │   ├── analytics/         # Reports & insights
-│   │   │   ├── settings/          # App configuration
-│   │   │   └── components/        # Reusable UI components
+│   ├── src/main/java/com/s100254797/smartbudgetting20/
+│   │   ├── � ui/
+│   │   │   ├── auth/
+│   │   │   │   ├── SignInActivity.kt
+│   │   │   │   └── SignUpActivity.kt
+│   │   │   ├── dashboard/
+│   │   │   │   ├── MainActivity.kt
+│   │   │   │   └── BalanceOverviewActivity.kt
+│   │   │   ├── expenses/
+│   │   │   │   ├── ExpenseActivity.txt
+│   │   │   │   └── CategoryActivity.kt
+│   │   │   ├── goals/
+│   │   │   │   └── GoBSetImageActivity.kt
+│   │   │   ├── analytics/
+│   │   │   │   └── CategoryGraphActivity.kt
+│   │   │   ├── achievements/
+│   │   │   │   └── BadgesActivity.kt
+│   │   │   └── components/
 │   │   ├── 💾 data/
-│   │   │   ├── database/          # Room database setup
-│   │   │   ├── models/            # Data entities
-│   │   │   ├── dao/               # Database access objects
-│   │   │   ├── repository/        # Data repositories
-│   │   │   └── remote/            # Firebase integration
+│   │   │   ├── models/
+│   │   │   │   ├── Badge.kt
+│   │   │   │   ├── Category.kt
+│   │   │   │   └── Goal.kt
+│   │   │   ├── repository/
+│   │   │   │   ├── BadgeRepository.kt
+│   │   │   │   └── FirestoreRepository.kt
+│   │   │   └── remote/
+│   │   │       └── (Firebase integration)
 │   │   ├── 🧠 domain/
-│   │   │   ├── models/            # Domain models
-│   │   │   ├── repository/        # Repository interfaces
-│   │   │   └── usecases/          # Business logic
+│   │   │   ├── models/
+│   │   │   ├── repository/
+│   │   │   └── usecases/
 │   │   ├── 🔧 utils/
-│   │   │   ├── Constants.kt       # App constants
-│   │   │   ├── Extensions.kt      # Kotlin extensions
-│   │   │   ├── DateUtils.kt       # Date formatting
-│   │   │   └── CurrencyUtils.kt   # Currency handling
-│   │   └── 🏗 di/                 # Dependency injection
+│   │   │   ├── BadgeUtils.txt
+│   │   │   ├── Extensions.kt
+│   │   │   └── (other utilities)
+│   │   ├── 🏗 di/
+│   │   └── adapters/
+│   │       ├── BadgeAdapter.kt
+│   │       └── ExpenseAdapter.kt
 │   └── src/main/res/
-│       ├── layout/                # XML layouts
+│       ├── layout/                # All XML layouts
 │       ├── drawable/              # Images & vectors
 │       ├── values/                # Colors, strings, styles
-│       └── navigation/            # Navigation graphs
-├── 📊 screenshots/                # App screenshots
-├── 📋 docs/                       # Documentation
-└── 🧪 tests/                      # Unit & integration tests
+│       ├── menu/                  # Menu resources
+│       ├── mipmap/                # App icons
+│       └── xml/                   # Other XML resources
+├── manifests/
+│   └── AndroidManifest.xml
+└── (test directories)
 ```
 
 ---
