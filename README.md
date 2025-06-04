@@ -112,17 +112,16 @@ Visual spending breakdown with interactive pie charts and budget usage
 - Navigation Component
 - ViewBinding & DataBinding
 - Custom Animations
-- Camera2 API
+- Gallery Photo Upload
+
 ```
 
 ### Backend & Data
 ```kotlin
 // Robust Data Management
 - Firebase Authentication
-- Room Database (SQLite)
 - Kotlin Coroutines
 - Flow & LiveData
-- MVVM Architecture
 - Repository Pattern
 - WorkManager
 ```
@@ -130,12 +129,9 @@ Visual spending breakdown with interactive pie charts and budget usage
 ### Third-Party Integrations
 ```gradle
 // Enhanced Functionality
-- AmbilWarna Color Picker
 - MPAndroidChart for visualizations
-- Retrofit for API calls
 - Glide for image loading
 - ML Kit for OCR
-- CameraX for photo capture
 ```
 
 ---
