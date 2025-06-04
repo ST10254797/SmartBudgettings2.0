@@ -300,131 +300,107 @@ Password: Dan@123
 
 ## 📚 User Guide
 
-### 🌟 First-Time Setup
+1. *Create Your Account*  
+   - Launch Smart Budgeting 2.0  
+   - Tap **Get Started** and register with your email  
+   - Verify your email address to activate your account  
 
-1. *Create Your Account*
-   - Launch Smart Budgeting 2.0
-   - Tap "Get Started" and register with email
-   - Verify your email address
+2. *Personalize Your Budgeting*  
+   - Add your custom expense categories  
+   - Set your minimum and maximum budget goals  
 
-2. *Personalize Your Experience*
-   - Set your preferred currency (ZAR default)
-   - Choose your pay frequency (monthly/weekly)
-   - Set up initial expense categories
-
-3. *Connect Your Data*
-   - Import existing expenses (CSV support)
-   - Set up recurring expenses
-   - Configure budget alerts
+3. *Start Tracking Expenses*  
+   - Add new expenses and attach photos from your gallery if needed  
+   - Monitor your spending and budget progress in real time  
+   - Receive warnings if you are below, within, or above your budget  
 
 ### 💡 Daily Usage
 
 #### Recording Expenses
 
-📱 Quick Entry:
-1. Tap the "Add Expense" floating action button
-2. Enter expense amount in the Amount field
-3. Add description in the Description field
-4. Select date using the date picker
-5. Choose category from dropdown (e.g., "Food")
-6. Optionally capture receipt photo
-7. Tap "Save" to record the expense
+📱 Quick Entry:  
+1. Tap the **Add Expense** floating action button  
+2. Enter expense amount in the **Amount** field  
+3. Add description in the **Description** field  
+4. Select date using the date picker  
+5. Choose category from dropdown (e.g., "Food")  
+6. Optionally upload receipt photo from your gallery  
+7. Tap **Save** to record the expense  
 
 #### Budget Monitoring
 
-📊 Stay on Track:
-1. View budget status banner at the top of Expense Tracker
-2. Monitor "You're within your budget" notifications
-3. Check budget usage progress in Balance Overview
-4. Review spending breakdown by category
+📊 Stay on Track:  
+1. View budget status banner at the top of Expense Tracker  
+2. Monitor notifications like **You're within your budget**  
+3. Check budget usage progress in Balance Overview  
+4. Review spending breakdown by category  
 
 #### Managing Categories
 
-🏷 Category Organization:
-1. Navigate to "Manage Categories" screen
-2. View existing categories with totals (e.g., Sports: R1000.00)
-3. See individual expenses within each category
-4. Add new categories using the text input field
-5. Use "Add Category" or "Delete Category" buttons as needed
-6. Tap "Refresh Categories" to update totals
+🏷 Category Organization:  
+1. Navigate to **Manage Categories** screen  
+2. View existing categories with totals (e.g., Sports: R1000.00)  
+3. See individual expenses within each category  
+4. Add new categories using the text input field  
+5. Use **Add Category** or **Delete Category** buttons as needed  
+6. Tap **Refresh Categories** to update totals  
 
 #### Analyzing Spending
 
-📈 Get Insights:
-1. Navigate to Balance Overview screen
-2. View "Expense Distribution" pie chart
-3. See percentage breakdown by category (e.g., Test: 38.7%, Sports: 33.0%, Rent: 28.3%)
-4. Monitor budget usage with progress indicators
-5. Use date filters to view specific time periods
-
----
-
-## 🧪 Testing & Quality
-
-### Test Coverage
-- *Unit Tests*: 90%+ coverage with JUnit5 and MockK
-- *Integration Tests*: Database and API integration
-- *UI Tests*: Espresso automated testing
-- *Manual Testing*: Device compatibility across Android versions
-
-### Performance Metrics
-| Metric | Target | Current |
-|--------|--------|---------|
-| App Launch Time | < 3s | 1.8s |
-| Memory Usage | < 150MB | 120MB |
-| Battery Impact | < 5%/day | 2.1%/day |
-| Crash-Free Rate | > 99% | 99.8% |
-| User Rating | > 4.5⭐ | 4.7⭐ |
+📈 Get Insights:  
+1. Navigate to **Balance Overview** screen  
+2. View **Expense Distribution** pie chart  
+3. See percentage breakdown by category (e.g., Test: 38.7%, Sports: 33.0%, Rent: 28.3%)  
+4. Monitor budget usage with progress indicators  
+5. Use date filters to view specific time periods  
 
 ### Quality Assurance
-- *Code Reviews*: All PRs require 2+ approvals
-- *Automated CI/CD*: GitHub Actions for builds and tests
-- *Security Scans*: Regular dependency and vulnerability checks
-- *Performance Monitoring*: Firebase Performance and Crashlytics
+- *Automated CI/CD*: GitHub Actions run builds and tests on each commit
+- *Security Scans*: Regular checks for dependencies and vulnerabilities
 
 ---
 
 ## 🔒 Privacy & Security
 
 - 🔐 *End-to-end encryption* for sensitive financial data
-- 🏠 *Local-first storage* with optional cloud backup
-- 🔑 *Biometric authentication* support
+- ☁️ *Cloud storage* fully managed by Firebase
 - 🛡 *No data selling* - your financial privacy is guaranteed
 - ✅ *POPIA compliant* - follows South African data protection laws
+- 🔒 *Firebase Security Rules* enforce data access control
+
 
 ---
 
 ## 🌍 Localization
 
-Smart Budgeting 2.0 is designed for South African users:
+### 🇿🇦 South African Relevance
 
-- 🇿🇦 *ZAR Currency* as default with multi-currency support
-- 🏪 *Local merchant categories* (Shoprite, Pick n Pay, Woolworths, etc.)
-- 📅 *SA Holiday calendar* integration
-- 💳 *Local payment methods* (EFT, Debit Orders, Cash)
-- 📱 *Data-conscious design* for limited connectivity areas
+- 💰 **ZAR Currency** as the default for all budgeting and expense tracking
+- 🏷 **Localized Categories** like Food, Transport, and Rent tailored to common SA expenses
+- 📶 **Data-Conscious Design** to support users with limited connectivity
+- ☁️ **Firebase-Backed Storage** for real-time sync and secure cloud access
 
 ---
 
 ## 🚀 Roadmap
 
 ### Version 2.1 (Q3 2025)
-- [ ] 💳 Bank account integration (Open Banking)
-- [ ] 🤖 AI-powered spending predictions
-- [ ] 👥 Family budget sharing
-- [ ] 📊 Advanced investment tracking
+- [ ] 📦 Firebase export/import improvements
+- [ ] 🔔 Custom budget alerts
+- [ ] 📅 Weekly/monthly insights summaries
+- [ ] 🌙 Dark mode support
 
 ### Version 2.2 (Q4 2025)
-- [ ] 🏪 Merchant deal notifications
-- [ ] 📈 Cryptocurrency portfolio tracking
-- [ ] 🎯 Financial goal coaching
-- [ ] 📱 Wear OS companion app
+- [ ] 🛠 Category-based budget recommendations
+- [ ] 📊 Enhanced pie chart filtering
+- [ ] 🧾 Bulk expense entry
+- [ ] 🌍 Language & regional settings
 
 ### Version 3.0 (Q1 2026)
-- [ ] 🧠 Machine learning expense categorization
-- [ ] 🌐 Multi-platform support (iOS, Web)
-- [ ] 🏢 Business expense management
-- [ ] 📊 Tax preparation assistance
+- [ ] 🧠 Smart recurring expense detection
+- [ ] 📥 Offline expense queuing (sync later)
+- [ ] 🗂 Archive old months’ budgets
+- [ ] 🔄 Auto-refresh dashboard widgets
 
 ---
 
