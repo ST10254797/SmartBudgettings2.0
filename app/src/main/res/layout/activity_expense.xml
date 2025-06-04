@@ -312,21 +312,16 @@
                 </LinearLayout>
 
                 <!-- ScrollView for ListView -->
-                <ScrollView
+                <ListView
+                    android:id="@+id/expensesListView"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:fillViewport="true">
+                    android:background="#262626"
+                    android:divider="#757575"
+                    android:dividerHeight="1dp"
+                    android:scrollbars="vertical" />
 
-                    <ListView
-                        android:id="@+id/expensesListView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="#262626"
-                        android:divider="#757575"
-                        android:dividerHeight="1dp"
-                        android:scrollbars="vertical" />
-                </ScrollView>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
