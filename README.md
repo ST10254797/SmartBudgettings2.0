@@ -19,44 +19,29 @@ Perfect for students managing their allowances, professionals optimizing their s
 
 ## ✨ Key Features
 
-### 🔐 *Secure Authentication System*
-- *Firebase-powered security* with email verification and password recovery
-- *Biometric login support* for enhanced security and convenience
-- *Multi-device synchronization* to access your data anywhere
+### 🔐 Secure Authentication
+- **Firebase-powered login** with email verification and password recovery
 
-### 🏷 *Smart Category Management*
-- *Custom expense categories* with personalized organization
-- *Category-based expense tracking* with detailed breakdowns
-- *Easy category addition and deletion* for personalized budgeting
-- *Real-time category totals* showing spending per category
+### 🏷 Custom Category Management
+- **Easily create your own expense categories** for personalized budgeting
 
-### 💰 *Advanced Expense Tracking*
-- *Quick expense entry* with amount, description, and date fields
-- *Category-based expense organization* with dropdown selection
-- *Receipt photo capture* for expense documentation
-- *Recent expenses list* with easy deletion options
-- *Date filtering* to view expenses by specific time periods
-- *Budget status tracking* with real-time notifications
+### 💰 Simple Expense Tracking
+- **Add expenses with ease** and assign them to categories
+- **Upload receipts** directly from your gallery for recordkeeping
 
-### 📊 *Intelligent Budget Management*
-- *Visual budget monitoring* with usage indicators
-- *Real-time budget alerts* when approaching spending limits
-- *Category-based budget allocation* for detailed financial planning
-- *Budget vs actual spending* comparisons
+### 🎯 Goal-Oriented Budgeting
+- **Set monthly spending goals** and track your progress
+- **Visual budget indicators** show if you're below, within, or over your target
 
-### 📈 *Powerful Analytics & Insights*
-- *Interactive pie chart visualization* showing expense distribution by category
-- *Percentage-based spending breakdown* for clear financial insights
-- *Category comparison* with visual legends
-- *Budget usage tracking* with progress indicators
-- *Comprehensive balance overview* with spending patterns
+### 📊 Insightful Reports & Analytics
+- **Monthly spending summary** with min/max budget tracking
+- **Progress tracker** displays spending and days left in the month
+- **Bar graph** breaks down expenses by category, with visual goal lines for min/max targets
 
-### 📱 *Modern Mobile Experience*
-- *Dark mode interface* for comfortable viewing
-- *Intuitive navigation* with bottom tab bar
-- *Floating action buttons* for quick expense entry
-- *Responsive design* optimized for mobile usage
-- *Clean, modern UI* with green accent colors
+### 📱 User-Friendly Mobile Experience
+- **Offline support** so you can budget anytime, anywhere
+- **Achievement badges** to celebrate your budgeting milestones
+
 
 ---
 
