@@ -25,33 +25,38 @@ Perfect for students managing their allowances, professionals optimizing their s
 - *Multi-device synchronization* to access your data anywhere
 
 ### 🏷 *Smart Category Management*
-- *Custom expense categories* with personalized colors and icons
-- *AI-powered categorization suggestions* based on spending patterns
-- *Subcategory support* for detailed expense organization
+- *Custom expense categories* with personalized organization
+- *Category-based expense tracking* with detailed breakdowns
+- *Easy category addition and deletion* for personalized budgeting
+- *Real-time category totals* showing spending per category
 
 ### 💰 *Advanced Expense Tracking*
-- *One-tap expense logging* with smart amount recognition
-- *Receipt photo capture* with OCR text extraction
-- *Recurring expense automation* for bills and subscriptions
-- *Location-based expense tagging* for better insights
+- *Quick expense entry* with amount, description, and date fields
+- *Category-based expense organization* with dropdown selection
+- *Receipt photo capture* for expense documentation
+- *Recent expenses list* with easy deletion options
+- *Date filtering* to view expenses by specific time periods
+- *Budget status tracking* with real-time notifications
 
 ### 📊 *Intelligent Budget Management*
-- *Flexible budget periods* (weekly, monthly, quarterly, yearly)
-- *Smart budget recommendations* based on spending history
-- *Real-time alerts* when approaching spending limits
-- *Goal-based budgeting* for savings targets
+- *Visual budget monitoring* with usage indicators
+- *Real-time budget alerts* when approaching spending limits
+- *Category-based budget allocation* for detailed financial planning
+- *Budget vs actual spending* comparisons
 
 ### 📈 *Powerful Analytics & Insights*
-- *Interactive spending charts* with drill-down capabilities
-- *Month-over-month comparisons* and trend analysis
-- *Spending pattern recognition* with personalized recommendations
-- *Financial health scoring* with improvement suggestions
+- *Interactive pie chart visualization* showing expense distribution by category
+- *Percentage-based spending breakdown* for clear financial insights
+- *Category comparison* with visual legends
+- *Budget usage tracking* with progress indicators
+- *Comprehensive balance overview* with spending patterns
 
 ### 📱 *Modern Mobile Experience*
-- *Offline-first architecture* - works without internet connection
-- *Dark mode support* for comfortable night-time use
-- *Gesture-based navigation* for lightning-fast interactions
-- *Widget support* for home screen expense tracking
+- *Dark mode interface* for comfortable viewing
+- *Intuitive navigation* with bottom tab bar
+- *Floating action buttons* for quick expense entry
+- *Responsive design* optimized for mobile usage
+- *Clean, modern UI* with green accent colors
 
 ---
 
@@ -70,21 +75,17 @@ Perfect for students managing their allowances, professionals optimizing their s
 
 ## 🎥 App Showcase
 
-### Authentication & Onboarding
-![User Registration Flow](screenshots/auth_flow.gif)
-Secure registration with email verification
+### Expense Tracking Interface
+![Expense Tracker](screenshots/expense_tracker.png)
+Quick expense entry with budget monitoring and recent expenses view
 
-### Expense Management
-![Adding Expenses](screenshots/expense_tracking.gif)
-Quick expense entry with receipt capture
-
-### Budget Overview
-![Budget Dashboard](screenshots/budget_management.gif)
-Real-time budget monitoring and alerts
+### Category Management
+![Category Management](screenshots/category_management.png)
+Organize expenses with custom categories and real-time totals
 
 ### Analytics Dashboard
-![Spending Analytics](screenshots/analytics_dashboard.gif)
-Comprehensive spending insights and trends
+![Balance Overview](screenshots/balance_overview.png)
+Visual spending breakdown with interactive pie charts and budget usage
 
 > 🎬 [Watch Full Demo Video](https://youtu.be/7H_umG7AAS0) - See all features in action!
 
@@ -336,30 +337,40 @@ Password: Dan@123
 #### Recording Expenses
 
 📱 Quick Entry:
-1. Tap the floating action button (+)
-2. Enter amount (smart keypad)
-3. Select/create category
-4. Add description (optional)
-5. Snap receipt photo (optional)
-6. Save expense
+1. Tap the "Add Expense" floating action button
+2. Enter expense amount in the Amount field
+3. Add description in the Description field
+4. Select date using the date picker
+5. Choose category from dropdown (e.g., "Food")
+6. Optionally capture receipt photo
+7. Tap "Save" to record the expense
 
 #### Budget Monitoring
 
 📊 Stay on Track:
-1. Check dashboard for budget status
-2. Review spending alerts
-3. Adjust budgets as needed
-4. Set savings goals
-5. Track goal progress
+1. View budget status banner at the top of Expense Tracker
+2. Monitor "You're within your budget" notifications
+3. Check budget usage progress in Balance Overview
+4. Review spending breakdown by category
+
+#### Managing Categories
+
+🏷 Category Organization:
+1. Navigate to "Manage Categories" screen
+2. View existing categories with totals (e.g., Sports: R1000.00)
+3. See individual expenses within each category
+4. Add new categories using the text input field
+5. Use "Add Category" or "Delete Category" buttons as needed
+6. Tap "Refresh Categories" to update totals
 
 #### Analyzing Spending
 
 📈 Get Insights:
-1. Navigate to Analytics tab
-2. Select time period
-3. View spending breakdown
-4. Identify trends and patterns
-5. Export reports (PDF/CSV)
+1. Navigate to Balance Overview screen
+2. View "Expense Distribution" pie chart
+3. See percentage breakdown by category (e.g., Test: 38.7%, Sports: 33.0%, Rent: 28.3%)
+4. Monitor budget usage with progress indicators
+5. Use date filters to view specific time periods
 
 ---
 
