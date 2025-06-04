@@ -500,7 +500,6 @@ copies of the Software...
 
 - 🏫 *Varsity College* for project support and guidance
 - 🔥 *Firebase Team* for excellent backend services  
-- 🎨 *Material Design* for beautiful UI components
 - 💰 *South African Reserve Bank* for currency data APIs
 - 👥 *Beta Testers* who helped shape this app
 - ☕ *Coffee Shops of Durban* for providing coding fuel
