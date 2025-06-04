@@ -437,16 +437,8 @@ git push origin feature/amazing-feature
 
 ## 📞 Support & Feedback
 
-### Get Help
-- 📧 *Email*: support@smartbudget.co.za  
-- 💬 *Discord*: [Join our community](https://discord.gg/smartbudget)
-- 📱 *WhatsApp*: +27 11 123 4567 (Business hours: 9AM-5PM SAST)
+### 📬 Get Help
 - 🐛 *Bug Reports*: [GitHub Issues](https://github.com/ST10254797/SmartBudgettings2.0/issues)
-
-### Stay Connected
-- 🐦 *Twitter*: [@SmartBudgetZA](https://twitter.com/smartbudgetza)
-- 📘 *Facebook*: [SmartBudgeting SA](https://facebook.com/smartbudgetingsa)
-- 💼 *LinkedIn*: [Smart Budgeting Team](https://linkedin.com/company/smartbudgetingteam)
 
 ---
 
@@ -472,8 +464,6 @@ copies of the Software...
 
 - 🏫 *Varsity College* for project support and guidance
 - 🔥 *Firebase Team* for excellent backend services  
-- 💰 *South African Reserve Bank* for currency data APIs
-- 👥 *Beta Testers* who helped shape this app
 - ☕ *Coffee Shops of Durban* for providing coding fuel
 
 ---
