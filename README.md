@@ -49,12 +49,13 @@ Perfect for students managing their allowances, professionals optimizing their s
 
 | Benefit | Impact |
 |---------|--------|
-| 💵 *Save More Money* | Identify wasteful spending and optimize habits to increase savings by up to 30% |
-| 🎯 *Achieve Financial Goals* | Track progress toward savings targets with visual feedback and milestone celebrations |
-| 🧠 *Reduce Financial Stress* | Gain complete visibility into your financial health and spending patterns |
-| 📱 *Mobile-First Design* | Manage finances on-the-go with an app optimized for South African users |
-| 🔒 *Bank-Level Security* | Keep financial data secure with encryption and local storage options |
-| ⚡ *Time-Saving Automation* | Reduce manual entry with smart categorization and recurring expense handling |
+| 💵 *Better Money Awareness* | Track exactly where your money goes with categorized expenses and monthly summaries |
+| 🎯 *Reach Your Budget Goals* | Stay on target with visual progress indicators and min/max budget tracking |
+| 🧠 *More Control, Less Stress* | Know if you're within budget at a glance and avoid overspending surprises |
+| 📱 *Accessible Anywhere* | Budget anytime—even offline—with a mobile-first experience |
+| 🔒 *Secure by Design* | Keep your data safe with Firebase authentication and local storage support |
+| 🏆 *Stay Motivated* | Earn badges for good budgeting behavior and stay engaged with your progress |
+
 
 ---
 
