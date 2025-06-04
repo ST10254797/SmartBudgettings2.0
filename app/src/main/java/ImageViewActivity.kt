@@ -42,4 +42,4 @@ class ImageViewActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 }
-//GeeksforGeeks, 2021.How to Perform CRUD Operations in Room Database in Android? [online] Available at: https://www.geeksforgeeks.org/how-to-perform-crud-operations-in-room-database-in-android/ (Accessed 28 April 2025)
+//Firebase, 2025. Add Firebase to your Android project. [online] Available at: https://firebase.google.com/docs/android/setup [Accessed 29 May 2025]

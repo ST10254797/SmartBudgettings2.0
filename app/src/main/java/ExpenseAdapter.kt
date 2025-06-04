@@ -56,3 +56,4 @@ class ExpenseAdapter(
         return view
     }
 }
+//Firebase, 2025. Add Firebase to your Android project. [online] Available at: https://firebase.google.com/docs/android/setup [Accessed 29 May 2025]
